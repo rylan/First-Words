@@ -1,0 +1,9 @@
+{
+	"id": "com.icottrell.firstwords",
+	"version": "1.0.0",
+	"vendor": "iCottrell",
+	"type": "web",
+	"main": "index.html",
+	"title": "First Words",
+	"icon": "icon.png"
+}
