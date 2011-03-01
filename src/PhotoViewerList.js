@@ -1,12 +1,11 @@
 enyo.kind({
-	name: "com.iCottrell.Photos",
+	name: "com.iCottrell.PhotoViewerList",
 	kind: enyo.VFlexBox,
 	pageSize: 10,
 	style: "background-color: white;",
 	components: [
 		{name: "flickrSearch", kind: "WebService", onSuccess: "gotSearchResults", onFailure: "gotSearchFailure"},
 		{name: "dividerTitle", className: "title-photo"},
-		//{kind: "Divider", name:"dividerTitle"},
 		{kind: enyo.HFlexBox, flex: 1, components: [
 			{name: "list", align:"center", kind: enyo.VirtualList, flex: 1, 
 				onSetupRow: "setupRow",
@@ -60,7 +59,7 @@ enyo.kind({
 	},
 	discardPage: function(inSender, inPage) {
 	},
-	searchBtnClick: function(record) {
+	getImages: function(record) {
 		this.filter = record.word;
 		this.keywords = record.keywords;
 		if (!this.filter) {
