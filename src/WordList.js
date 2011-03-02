@@ -10,14 +10,8 @@ enyo.kind({
 				{name: "itemWord", flex: 1},
 				{name: "itemDate", className: "item-date"}
 			]}
-		]},
-		
-		{name: "console", style: "color: white; background-color: white; padding: 4px; border:none"},
-		{kind: enyo.HFlexBox,
-			layoutKind: "HFlexLayout", className: "bottom-background", components: [
-				{kind: "Button", caption: "Add Word", flex:1},
-				{name: "emptyspace", flex: 1}
-			],}
+		]}
+	
 		],
 		create: function() {
 			this.data = [];
@@ -80,6 +74,6 @@ enyo.kind({
 		},
 		itemClick: function(inSender, inEvent, inRowIndex){
 			this.$.list.select(inRowIndex);
-			return false
+			return false;
 		}
 });

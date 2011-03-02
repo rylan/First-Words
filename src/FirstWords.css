@@ -39,3 +39,9 @@
 .deflist{
 	background-color: white;
 }
+.addDialogTitle{
+	font-size: 16pt;
+	color: #6060B0;
+	margin-bottom:5px;
+	border-bottom: 1px solid black;
+}
