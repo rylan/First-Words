@@ -42,7 +42,8 @@ enyo.kind({
 	listSetupRow: function(inSender, inIndex){
 		if(this.wordData[inIndex]){
 			this.setupDivider(inIndex);
-			this.$.defstring.setContent(this.wordData[inIndex][1]);
+			this.$.defstring.setContent(this.wordData[inIndex][1][0].toUpperCase()+
+			this.wordData[inIndex][1].substring(1,this.wordData[inIndex][1].length));
 			return true;
 		}
 	},
@@ -64,8 +65,9 @@ enyo.kind({
 		var ps = dictionary.getElementsByTagName("partofspeech");
 		for(var i=0; i< ps.length; i++ ){
 			var d = ps[i].getElementsByTagName("def");
+			var att = (ps[i].getAttribute("pos")? ps[i].getAttribute("pos").toUpperCase(): null);
 			for(var j=0; j < d.length; j++){
-				this.wordData.push([ps[i].getAttribute("pos"), d[j].childNodes[0].nodeValue ]);
+				this.wordData.push([ att, d[j].childNodes[0].nodeValue ]);
 			}
 		}
 		this.$.deflist.refresh();;	

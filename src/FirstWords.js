@@ -9,8 +9,8 @@ enyo.kind({
 		{kind: enyo.HFlexBox,
 		flex:2,	
 		layoutKind: "HFlexLayout", wideWidth: 800, components: [
-			{flex:2, kind: enyo.VFlexBox, components: [
-				{kind: "com.iCottrell.WordList", name: "wordlist", flex: 1, onclick: "onChange"},
+			{flex:1, kind: enyo.VFlexBox, components: [
+				{kind: "com.iCottrell.WordList", name: "wordlist",  onclick: "onChange"},
 					{name: "console", style: "color: white; background-color: white; padding: 4px; border:none"},
 					{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
 						{kind: enyo.Button, name: "addWordButton", caption: "Add Word", flex:1, onclick: "addWordOpen"},
@@ -20,7 +20,7 @@ enyo.kind({
 							{kind: "RowGroup", caption: "Add Word", components: [
 								{kind: "FancyInput", hint: "Enter word", label:"Word"},						
 								{kind: "DatePicker", label: "Date", minYear: 2009, onChange: "wordDate"},
-								{kind: "FancyInput", hint: "Enter keywords (separated by ',')", label:"Word"},	
+								{kind: "FancyInput", hint: "Optional keywords used to improve image search results (separated by ',')", label:"Word"},	
 							]},
 							{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", components: [
 								{kind: "Button", caption: "Add", flex:1, onclick: "addWord"},
@@ -30,7 +30,7 @@ enyo.kind({
 						{name: "emptyspace", flex: 1}
 					],}
 				]},
-	    	{kind: enyo.VFlexBox, flex: 3, style:"border-left: 1px solid silver;", components: [
+	    	{kind: enyo.VFlexBox, flex: 4, style:"border-left: 1px solid silver;", components: [
 				{kind: "com.iCottrell.PhotoViewerCarousel", name:"photos", flex:2},
 				{kind: "com.iCottrell.WordDetails", name: "details", flex:1},			
 			]}
