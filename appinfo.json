@@ -5,5 +5,5 @@
 	"type": "web",
 	"main": "index.html",
 	"title": "First Words",
-	"icon": "icon.png"
+	"icon": "img/icon.png"
 }

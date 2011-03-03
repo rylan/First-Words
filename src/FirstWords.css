@@ -30,6 +30,10 @@
 	background-repeat: repeat-x;
 }
 
+.topBackground{
+	background-image: url('../img/fadedback_blue_inverse.png');
+	background-repeat: repeat-x;
+}
 .title-photo{
 	font-size: 20pt;
 	color: #6060B0;
@@ -44,4 +48,8 @@
 	color: #6060B0;
 	margin-bottom:5px;
 	border-bottom: 1px solid black;
+}
+.imageLogo{
+	height:45px;
+	margin-left:5px;
 }

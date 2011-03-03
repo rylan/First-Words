@@ -51,7 +51,7 @@ enyo.kind({
 		this.wordData = [];
 		this.$.deflist.punt();
 		this.$.deflist.reset();
-		var url = "http://api-pub.dictionary.com/v001?vid=yj66jd4006bmxf1wgnwhcse7nuo75ff3zl9jzej0ku&q="+word+"&type=define";
+		var url = "http://api-pub.dictionary.com/v001?vid=yj66jd4006bmxf1wgnwhcse7nuo75ff3zl9jzej0ku&q="+word+"&type=define&site=dictionary";
 		this.$.dictionaryLookup.setUrl(url);
 		var r = this.$.dictionaryLookup.call();
 		this.$.scrim.show();

@@ -2,9 +2,9 @@ enyo.kind({
 	kind:"Control",
 	name: "com.iCottrell.FirstWords",
 	kind: enyo.VFlexBox, components:[
-		{kind: "PageHeader", layoutKind: "HFlexLayout", components:[
-			{content: "First Words -"},
-			{content: "An Interactive Guide", style:"margin-left:4px; font-size:12pt"}
+		{kind: enyo.HFlexBox, className:"topBackground", components:[
+			{kind:"Image", src:"img/firstWords.png", className:"imageLogo"},
+			{content: "- An Interactive Guide", style:"margin-top:15px;margin-left:5px; font-size:12pt"}
 		]},
 		{kind: enyo.HFlexBox,
 		flex:2,	
