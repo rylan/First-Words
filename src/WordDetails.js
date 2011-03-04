@@ -60,8 +60,13 @@ enyo.kind({
 	gotLookupResults: function(inSender, inResponse, inRequest) {
 		this.$.scrim.hide();
 		var dictionary = inResponse;
-		this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
-		this.pron = dictionary.getElementsByTagName("pron")[0].childNodes[0].nodeValue;
+		if(dictionary.getElementsByTagName("pron")[0]){
+			this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
+			//this.pron = dictionary.getElementsByTagName("pron")[0].childNodes[0].nodeValue;
+		}else{
+			this.audiofile = null;
+		}
+	
 		var ps = dictionary.getElementsByTagName("partofspeech");
 		for(var i=0; i< ps.length; i++ ){
 			var d = ps[i].getElementsByTagName("def");

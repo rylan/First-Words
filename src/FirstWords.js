@@ -15,12 +15,13 @@ enyo.kind({
 					{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
 						{kind: enyo.Button, name: "addWordButton", caption: "Add Word", flex:1, onclick: "addWordOpen"},
 						{name: "addWordDialog", kind: "Popup", layoutKind: "VFlexLayout",
-						width: "75%", style: "overflow: hidden",  components: [
+						width: "73%", style: "overflow: hidden",  components: [
 							//{className: "addDialogTitle", content: "Add Word"},
 							{kind: "RowGroup", caption: "Add Word", components: [
-								{kind: "FancyInput", hint: "Enter word", label:"Word"},						
+								{kind: "FancyInput", hint: "Enter word", name:"Word"},						
 								{kind: "DatePicker", label: "Date", minYear: 2009, onChange: "wordDate"},
-								{kind: "FancyInput", hint: "Optional keywords used to improve image search results (separated by ',')", label:"Word"},	
+								{kind: "FancyInput", hint: "Optional keywords used to improve image search results (separated by ',')", label:"Word"},
+								{kind: "FancyRichText", name:"wordDefinition", hint:"Custom definition"}	
 							]},
 							{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", components: [
 								{kind: "Button", caption: "Add", flex:1, onclick: "addWord"},

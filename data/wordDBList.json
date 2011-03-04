@@ -50,7 +50,7 @@
 	{"word":"Cheese", 
 	 "when": "09/30/2011",
 	 "definition":"",
-	 "keywords":[]
+	 "keywords":["Cheddar", "Swiss"]
 	},
 	{"word":"Meow", 
 	 "when": "09/30/2011",
@@ -87,7 +87,7 @@
 	 "definition":"",
 	 "keywords":[]
 	},
-	{"word":"Ready, Get Set, Go", 
+	{"word":"Ready Get Set Go", 
 	 "when": "09/30/2011",
 	 "definition":"",
 	 "keywords":[]
