@@ -4,5 +4,6 @@ enyo.depends(
 	"src/WordDetails.js",
 	"src/PhotoViewerList.js",
 	"src/PhotoViewerCarousel.js",
+	"src/AddWordDialog.js",
 	"src/FirstWords.css"
 );

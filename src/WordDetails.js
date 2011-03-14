@@ -8,21 +8,21 @@ enyo.kind({
 				{name: "defstring"}
 			]}
 		]},
-		{kind: "Button", caption: "Play Sound", className:"bottom-background", onclick:"plqySound"},
+		{kind: "Button", caption: "Play Sound", className:"bottom-background", onclick:"playSound"},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge"}
 		]}
 	],
 	create: function() {
 		this.wordData = [];
+		this.audio = new Audio();
 	    this.inherited(arguments);
 		this.updateDefinition("sushi");
 	},
 	playSound: function(){
-		if(!this.audiofile){
-			var audio = new Audio();
-			audio.src = this.audiofile;
-			audio.play();
+		if(this.audiofile){
+			this.audio.src = this.audiofile;
+			this.audio.play();
 		}
 	}, 
 	getGroupName: function(inIndex){
