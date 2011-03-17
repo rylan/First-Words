@@ -1,4 +1,5 @@
 enyo.depends(
+	"src/config.js",
 	"src/FirstWords.js",
 	"src/WordList.js",
 	"src/WordDetails.js",

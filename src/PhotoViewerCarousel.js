@@ -3,6 +3,7 @@ enyo.kind({
 	kind: enyo.VFlexBox,
 	style: "background-color: white;",
 	components: [
+		{kind: "com.iCottrell.config", name: "config"},
 		{name: "googleSearch", kind: "WebService", onSuccess: "gotSearchResults", onFailure: "gotSearchFailure"},
 		{name: "dividerTitle", className: "title-photo"},
 		{kind: "ImageView", flex: 1, onGetLeft: "getLeft", onGetRight: "getRight", pack: "center"},
@@ -42,7 +43,7 @@ enyo.kind({
 	
 		this.$.dividerTitle.setContent(this.filter);
 		this.photos = [];
-		var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+"&key=ABQIAAAAIsrBDRfwcjtKvBvRv1Nf-RQktEsemDdwhF8r6nwtU5g9wU9dGhSP7qi16vSAeKyNSaln4KsC8I-yAg&safe=active&rsz=8"
+		var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+"&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"
 		this.$.googleSearch.setUrl(url);
 		var r = this.$.googleSearch.call();
 		this.$.scrim.show();

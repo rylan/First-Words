@@ -1,6 +1,7 @@
 enyo.kind({
 	name: "com.iCottrell.WordDetails",
 	kind: enyo.VFlexBox, components: [
+		{kind: "com.iCottrell.config", name: "config"},
 		{name: "dictionaryLookup", kind: "WebService", handleAs: "xml", onSuccess: "gotLookupResults", onFailure: "gotLookupFailure"},
 		{flex: 2, name: "deflist", kind: "VirtualList", className: "deflist", onSetupRow: "listSetupRow", components: [
 			{kind: "Divider", name: "defdivider"},
@@ -51,7 +52,7 @@ enyo.kind({
 		this.wordData = [];
 		this.$.deflist.punt();
 		this.$.deflist.reset();
-		var url = "http://api-pub.dictionary.com/v001?vid=yj66jd4006bmxf1wgnwhcse7nuo75ff3zl9jzej0ku&q="+word+"&type=define&site=dictionary";
+		var url = "http://api-pub.dictionary.com/v001?vid="+this.$.config.getDictionaryAPIKey()+"&q="+word+"&type=define&site=dictionary";
 		this.$.dictionaryLookup.setUrl(url);
 		var r = this.$.dictionaryLookup.call();
 		this.$.scrim.show();
