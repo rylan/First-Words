@@ -10,11 +10,11 @@ enyo.kind({
 		flex:2,	
 		layoutKind: "HFlexLayout", wideWidth: 800, components: [
 			{flex:1, kind: enyo.VFlexBox, components: [
-				{kind: "com.iCottrell.WordList", name: "wordlist",  onclick: "onChange"},
+				{kind: "com.iCottrell.WordList", name: "wordlist",  onWordSelected: "wordSelected"},
 					{name: "console", style: "color: white; background-color: white; padding: 4px; border:none"},
 					{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
 						{kind: enyo.Button, name: "addWordButton", caption: "Add Word", flex:1, onclick: "addWordOpen"},
-						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog"},
+						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog", onWordAdded:"refreshWordList"},
 						{name: "emptyspace", flex: 1}
 					],}
 				]},
@@ -24,11 +24,14 @@ enyo.kind({
 			]}
 		]}
 	], 
-	onChange: function(inSender, inEvent){
-		this.$.photos.getImages(this.$.wordlist.data[inEvent.rowIndex]);
-		this.$.details.updateDefinition(this.$.wordlist.data[inEvent.rowIndex].word);
+	wordSelected: function(){
+		this.$.photos.getImages(this.$.wordlist.getSelectedWord());
+		this.$.details.updateDefinition(this.$.wordlist.getSelectedWord().word);
 	},
 	addWordOpen: function(){
 		this.$.addWordDialog.openAtCenter();
+	},
+	refreshWordList: function(){
+		this.$.wordlist.loadData(null);
 	}
 });

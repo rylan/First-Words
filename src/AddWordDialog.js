@@ -2,7 +2,10 @@ enyo.kind({
 	name: "com.iCottrell.AddWordDialog", 
 	kind: enyo.Popup, 
 	layoutKind: "VFlexLayout",
-	width: "73%", style: "overflow: hidden", 
+	width: "73%", style: "overflow: hidden",
+	events:{
+		onWordAdded: ""
+	},
 	components: [
 		{kind: "RowGroup", caption: "Add Word", components: [
 			{kind: "FancyInput", hint: "Enter word", name:"word"},						
@@ -23,7 +26,28 @@ enyo.kind({
 	},
  
 	addWord: function(){
-		return true;
+		/*
+		this.wordDB = openDatabase("firstWordsDB","1.0", "25000",
+			function (db) {
+				db.changeVersion('', '1.0', function(t) {
+					t.executeSql('CREATE TABLE firstwords (word, when, definition, keywords)');
+				}, error);
+			}
+		);
+	
+		this.wordDB.transaction( function (t) { t.executeSql('INSERT INTO firstwords (word, when, definition, keywords) VALUES (?)', 
+			[this.$.word.getValue(), this.$.datePicker.getValue(), this.$.wordDefinition.getValue(), this.$.keywords.getValue()], 
+			function (transaction, resultSet) {
+				if (!resultSet.rowsAffected) {
+					alert('No rows affected!');
+					return false;
+				}
+				this.doWordAdded();
+				this.resetDialog();
+				this.close();
+			},
+			error); }, null, null);
+			*/
 	},
 	cancelDialog: function() {
 		this.resetDialog();
