@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>src/FirstWords.js</string>
+	<string>appinfo.json</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,136 +21,103 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>data/wordDBList.json</key>
+		<key>appinfo.json</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>4</integer>
+				<integer>14</integer>
 				<key>line</key>
-				<integer>6</integer>
+				<integer>1</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-			<key>selectFrom</key>
+		</dict>
+		<key>index.html</key>
+		<dict>
+			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>17</integer>
 				<key>line</key>
-				<integer>6</integer>
+				<integer>4</integer>
 			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>10</integer>
-				<key>line</key>
-				<integer>6</integer>
-			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
 		</dict>
 		<key>src/AddWordDialog.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>41</integer>
+				<integer>15</integer>
 				<key>line</key>
-				<integer>4</integer>
+				<integer>55</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>7</integer>
-				<key>line</key>
-				<integer>2</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>41</integer>
-				<key>line</key>
-				<integer>4</integer>
-			</dict>
+			<integer>12</integer>
 		</dict>
 		<key>src/FirstWords.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>37</integer>
+				<integer>67</integer>
 				<key>line</key>
-				<integer>31</integer>
+				<integer>59</integer>
 			</dict>
-			<key>columnSelection</key>
-			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>23</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>37</integer>
-				<key>line</key>
-				<integer>31</integer>
-			</dict>
+			<integer>24</integer>
 		</dict>
 		<key>src/WordDetails.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>30</integer>
+				<integer>43</integer>
 				<key>line</key>
-				<integer>44</integer>
+				<integer>68</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>22</integer>
+			<integer>43</integer>
 		</dict>
 		<key>src/WordList.js</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>1</integer>
+				<integer>25</integer>
 				<key>line</key>
-				<integer>26</integer>
+				<integer>115</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>0</integer>
+			<integer>82</integer>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
+		<string>src/FirstWords.js</string>
+		<string>src/AddWordDialog.js</string>
 		<string>src/WordList.js</string>
 		<string>src/WordDetails.js</string>
-		<string>src/AddWordDialog.js</string>
-		<string>src/FirstWords.js</string>
-		<string>data/wordDBList.json</string>
+		<string>appinfo.json</string>
+		<string>index.html</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{602, 45}, {838, 833}}</string>
+	<string>{{643, 345}, {838, 833}}</string>
 </dict>
 </plist>
