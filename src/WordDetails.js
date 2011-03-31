@@ -2,6 +2,7 @@ enyo.kind({
 	name: "com.iCottrell.WordDetails",
 	kind: enyo.VFlexBox, components: [
 		{kind: "com.iCottrell.config", name: "config"},
+		{name: "dictionaryLookupAudioOnly", kind: "WebService", handleAs: "xml", onSuccess: "gotAudioResults", onFailure: "gotAudioLookupFailure"},
 		{name: "dictionaryLookup", kind: "WebService", handleAs: "xml", onSuccess: "gotLookupResults", onFailure: "gotLookupFailure"},
 		{flex: 2, name: "deflist", kind: "VirtualList", className: "deflist", onSetupRow: "listSetupRow", components: [
 			{kind: "Divider", name: "defdivider"},
@@ -18,7 +19,10 @@ enyo.kind({
 		this.wordData = [];
 		this.audio = new Audio();
 	    this.inherited(arguments);
-		this.updateDefinition("sushi");
+		this.wordDB = null;
+	},
+	setDB: function(db){
+		this.wordDB = db;
 	},
 	playSound: function(){
 		if(this.audiofile){
@@ -50,20 +54,35 @@ enyo.kind({
 	},
 	updateDefinition: function(word){
 		this.wordData = [];
-		this.$.deflist.punt();
-		this.$.deflist.reset();
-		var url = "http://api-pub.dictionary.com/v001?vid="+this.$.config.getDictionaryAPIKey()+"&q="+word+"&type=define&site=dictionary";
-		this.$.dictionaryLookup.setUrl(url);
-		var r = this.$.dictionaryLookup.call();
-		this.$.scrim.show();
+		if(!word.definition | word.definition ===""){
+			this.$.deflist.punt();
+			this.$.deflist.reset();
+			var url = "http://api-pub.dictionary.com/v001?vid="+this.$.config.getDictionaryAPIKey()+"&q="+word.word+"&type=define&site=dictionary";
+			this.$.dictionaryLookup.setUrl(url);
+			var r = this.$.dictionaryLookup.call();
+			this.$.scrim.show();
+		}else{
+			this.wordData.push(["Custom Definition", word.definition]);
+			this.$.deflist.refresh();
+			var url = "http://api-pub.dictionary.com/v001?vid="+this.$.config.getDictionaryAPIKey()+"&q="+word.word+"&type=define&site=dictionary";
+			this.$.dictionaryLookupAudioOnly.setUrl(url);
+			this.$.dictionaryLookupAudioOnly.call();	
+		}
 		return true;
+	},
+	gotAudioResults: function(inSender, inResponse, inRequest) {
+		var dictionary = inResponse;
+		if(dictionary.getElementsByTagName("pron")[0]){
+			this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
+		}else{
+			this.audiofile = null;
+		}	
 	},
 	gotLookupResults: function(inSender, inResponse, inRequest) {
 		this.$.scrim.hide();
 		var dictionary = inResponse;
 		if(dictionary.getElementsByTagName("pron")[0]){
 			this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
-			//this.pron = dictionary.getElementsByTagName("pron")[0].childNodes[0].nodeValue;
 		}else{
 			this.audiofile = null;
 		}
@@ -76,7 +95,10 @@ enyo.kind({
 				this.wordData.push([ att, d[j].childNodes[0].nodeValue ]);
 			}
 		}
-		this.$.deflist.refresh();;	
+		this.$.deflist.refresh();	
+	},
+	gotAudioLookupFailure: function() {
+		
 	},
 	gotLookupFailure: function() {
 		this.$.scrim.hide();

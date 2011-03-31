@@ -20,34 +20,40 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
+		this.wordDB = null;
+	},
+	setDB: function(db){
+		this.wordDB = db;
 	},
 	wordDate: function(){
  		return true;		
 	},
  
 	addWord: function(){
-		/*
-		this.wordDB = openDatabase("firstWordsDB","1.0", "25000",
-			function (db) {
-				db.changeVersion('', '1.0', function(t) {
-					t.executeSql('CREATE TABLE firstwords (word, when, definition, keywords)');
-				}, error);
-			}
-		);
-	
-		this.wordDB.transaction( function (t) { t.executeSql('INSERT INTO firstwords (word, when, definition, keywords) VALUES (?)', 
-			[this.$.word.getValue(), this.$.datePicker.getValue(), this.$.wordDefinition.getValue(), this.$.keywords.getValue()], 
-			function (transaction, resultSet) {
-				if (!resultSet.rowsAffected) {
-					alert('No rows affected!');
-					return false;
-				}
-				this.doWordAdded();
-				this.resetDialog();
-				this.close();
-			},
-			error); }, null, null);
-			*/
+		if(this.wordDB !== null & this.$.word.getValue() !== ""){
+			var word = this.$.word.getValue();
+			var keywords =  this.$.keywords.getValue(); 
+			var def =  this.$.wordDefinition.getValue();
+			var date = new Date( this.$.datePicker.getValue()).getTime() ;
+			var sqlinsert = 'INSERT INTO firstwords (word, whendate, definition, keywords) VALUES ("'+ word + '","' + date + '","' + def + '","' + keywords + '");'
+			this.wordDB.transaction (
+				enyo.bind(this,(function (transaction){
+					transaction.executeSql(sqlinsert, [], enyo.bind(this,this.createRecordDataHandler), enyo.bind(this,this.errorHandler)); 
+				}))
+			);
+		}
+		
+	},
+	createRecordDataHandler: function(transaction, results) 
+	{	
+		this.doWordAdded();
+		this.resetDialog();
+		this.close();
+	},
+	errorHandler: function (transaction, error){
+		console.log(error);
+		this.resetDialog();
+		this.close();
 	},
 	cancelDialog: function() {
 		this.resetDialog();

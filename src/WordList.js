@@ -6,7 +6,6 @@ enyo.kind({
 		onWordSelected: ""
 	},
 	components: [
-		{kind: "WebService", url: "data/wordDBList.json", onSuccess: "queryResponse", onFailure: "queryFail"},
 		{flex: 1, name: "list", kind: "VirtualList", className: "list", onSetupRow: "listSetupRow", components: [
 			{kind: "Divider"},
 			{kind: "Item", className: "item", onclick:"itemClick", components: [
@@ -19,24 +18,48 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.data = [];
-		this.loadData(null);
 		this.selectedWord ="";
 		this.wordDB = null;
 	},
-	loadData: function(inSender) {
-		this.$.webService.call();
-		/*
-		this.wordDB = openDatabase("firstWordsDB", "1.0", "25000",
-			function (db) {
-				db.changeVersion('', '1.0', function(t) {
-					t.executeSql('CREATE TABLE firstwords (word, when, definition, keywords);');
-				}, error);
+	setDB: function(db){
+		this.wordDB = db;
+	},
+	loadData: function() {
+		if(this.wordDB){
+			var queryWordList = 'SELECT word, whendate, definition, keywords FROM firstwords;'
+			try {
+				this.wordDB.transaction(
+					enyo.bind(this, (function (transaction) {
+						transaction.executeSql(queryWordList, [], enyo.bind(this, this.queryDataHandler), enyo.bind(this,this.errorHandler));
+					}))
+				);
 			}
-		);
-		this.wordDB.readTransaction( function (t) { 
-			t.executeSql('SELECT word, when, definition, keywords FROM firstwords;', [], this.$.queryResponse, error);
-		}, this.$.queryFail, this.$.queryResponse);
-		*/
+			catch(e){
+				console.log(e);
+			}
+		}
+	},
+	queryDataHandler: function(transaction, results) {
+		this.data = [];
+		try{
+			for(var i=0; i < results.rows.length; i++){
+				this.data.push( results.rows.item(i) );
+			}
+		}
+		catch(e) {
+			console.log(e);
+		}
+		this.data.sort(function(inA, inB) {
+			var an = inA.word;
+			var bn = inB.word;
+			if (an < bn) return -1;
+			if (an > bn) return 1;
+			return 0;
+		});
+		this.$.list.refresh();
+	},
+	errorHandler: function(transaction, error) {
+		console.log(error);
 	},
 	queryResponse: function(inSender, inResponse) {
 		this.data = inResponse.results;
@@ -81,7 +104,7 @@ enyo.kind({
 			this.setupDivider(inIndex);
 			this.$.item.applyStyle("background-color", inSender.isSelected(inIndex) ? "lightblue" : null);
 			this.$.itemWord.setContent(record.word);
-			this.$.itemDate.setContent(this.formatDate(record.when));
+			this.$.itemDate.setContent(this.formatDate(record.whendate));
 			if(inSender.isSelected(inIndex)){
 				this.selectedWord = this.data[inIndex];
 				this.doWordSelected();
@@ -90,7 +113,7 @@ enyo.kind({
 		}
 	},
 	formatDate: function(date){
-		var d = new Date(date);
+		var d = new Date(date*1);
 		return d.toLocaleDateString();
 	},
 	itemClick: function(inSender, inEvent, inRowIndex){

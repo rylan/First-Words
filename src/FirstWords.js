@@ -24,9 +24,40 @@ enyo.kind({
 			]}
 		]}
 	], 
+	create: function(){
+		this.inherited(arguments);
+		this.wordDB = openDatabase('FirstWordsDB', '1.0', 'First Words Data Store', '65536');
+		try{
+			this.nullHandleCount=0;
+			var sqlTable = 'CREATE TABLE firstwords (word TEXT NOT NULL, whendate TEXT NOT NULL, definition TEXT, keywords TEXT);'
+			this.wordDB.transaction(
+				enyo.bind(this, (function (transaction) {
+					transaction.executeSql(sqlTable, [], enyo.bind(this,this.createTableDataHandler), enyo.bind(this,this.errorHandler));
+				}))
+			);
+		}
+		catch(e){
+			console.log(e);
+		}		
+	},
+	createTableDataHandler: function(transaction, results) 
+	{	
+		this.$.photos.setDB(this.wordDB);
+		this.$.details.setDB(this.wordDB);
+		this.$.wordlist.setDB(this.wordDB);
+		this.$.addWordDialog.setDB(this.wordDB);
+		this.$.wordlist.loadData();
+	},
+	errorHandler: function(transaction, error){
+		this.$.photos.setDB(this.wordDB);
+		this.$.details.setDB(this.wordDB);
+		this.$.wordlist.setDB(this.wordDB);
+		this.$.addWordDialog.setDB(this.wordDB);
+		this.$.wordlist.loadData();
+	},
 	wordSelected: function(){
 		this.$.photos.getImages(this.$.wordlist.getSelectedWord());
-		this.$.details.updateDefinition(this.$.wordlist.getSelectedWord().word);
+		this.$.details.updateDefinition(this.$.wordlist.getSelectedWord());
 	},
 	addWordOpen: function(){
 		this.$.addWordDialog.openAtCenter();
