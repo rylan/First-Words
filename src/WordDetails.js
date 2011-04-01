@@ -10,14 +10,14 @@ enyo.kind({
 				{name: "defstring"}
 			]}
 		]},
-		{kind: "Button", caption: "Play Sound", className:"bottom-background", onclick:"playSound"},
+		{kind: "Button", caption: "Play Sound", name: "play", className:"bottom-background", onclick:"playSound"},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge"}
-		]}
+		]},
+		{kind: "Sound", name: "sound", preload:false}
 	],
 	create: function() {
 		this.wordData = [];
-		this.audio = new Audio();
 	    this.inherited(arguments);
 		this.wordDB = null;
 	},
@@ -26,8 +26,8 @@ enyo.kind({
 	},
 	playSound: function(){
 		if(this.audiofile){
-			this.audio.src = this.audiofile;
-			this.audio.play();
+			this.$.sound.setSrc(this.audiofile);
+			this.$.sound.play();
 		}
 	}, 
 	getGroupName: function(inIndex){
@@ -83,8 +83,10 @@ enyo.kind({
 		var dictionary = inResponse;
 		if(dictionary.getElementsByTagName("pron")[0]){
 			this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
+			this.$.play.show();
 		}else{
 			this.audiofile = null;
+			this.$.play.hide();
 		}
 	
 		var ps = dictionary.getElementsByTagName("partofspeech");
