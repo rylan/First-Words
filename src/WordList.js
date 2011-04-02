@@ -8,7 +8,7 @@ enyo.kind({
 	components: [
 		{flex: 1, name: "list", kind: "VirtualList", className: "list", onSetupRow: "listSetupRow", components: [
 			{kind: "Divider"},
-			{kind: "Item", className: "item", onclick:"itemClick", components: [
+			{kind: "SwipeableItem", className: "item", onclick:"itemClick", onConfirm: "deleteItem", components: [
 				{name: "itemWord", flex: 1},
 				{name: "itemDate", className: "item-date"}
 			]}
@@ -95,16 +95,17 @@ enyo.kind({
 		var group = this.getGroupName(inIndex);
 		this.$.divider.setCaption(group);
 		this.$.divider.canGenerate = Boolean(group);
-		this.$.item.applyStyle("border-top", Boolean(group) ? "none" : "1px solid silver;");
+		this.$.swipeableItem.applyStyle("border-top", Boolean(group) ? "none" : "1px solid silver;");
 	},
 	listSetupRow: function(inSender, inIndex) {
 		var record = this.data[inIndex];
 		if (record) {
 			// bind data to item controls
 			this.setupDivider(inIndex);
-			this.$.item.applyStyle("background-color", inSender.isSelected(inIndex) ? "lightblue" : null);
+			this.$.swipeableItem.applyStyle("background-color", inSender.isSelected(inIndex) ? "lightblue" : null);
 			this.$.itemWord.setContent(record.word);
 			this.$.itemDate.setContent(this.formatDate(record.whendate));
+			
 			if(inSender.isSelected(inIndex)){
 				this.selectedWord = this.data[inIndex];
 				this.doWordSelected();
@@ -112,15 +113,32 @@ enyo.kind({
 			return true;
 		}
 	},
-	formatDate: function(date){
+	formatDate: function (date){
 		var d = new Date(date*1);
 		return d.toLocaleDateString();
 	},
 	itemClick: function(inSender, inEvent, inRowIndex){
 		this.$.list.select(inRowIndex);
-		return false;
+		return true;
 	},
 	getSelectedWord: function(){
 		return this.selectedWord;
+	},
+	deleteItem: function (inSender, inIndex){
+		var sqlDelete = 'DELETE FROM firstwords WHERE word="'+this.data[inIndex].word+'";'
+		try {
+			this.wordDB.transaction(
+				enyo.bind(this, (function (transaction) {
+					transaction.executeSql(sqlDelete, [], enyo.bind(this, this.deleteDataHandler), enyo.bind(this,this.errorHandler));
+				}))
+			);
+		}
+		catch(e){
+			console.log(e);
+		}
+	},
+	deleteDataHandler: function(){
+		this.loadData();
+		this.$.list.refresh();
 	}
 });

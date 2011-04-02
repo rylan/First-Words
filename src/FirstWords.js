@@ -10,7 +10,7 @@ enyo.kind({
 		flex:2,	
 		layoutKind: "HFlexLayout", wideWidth: 800, components: [
 			{flex:1, kind: enyo.VFlexBox, components: [
-				{kind: "com.iCottrell.WordList", name: "wordlist",  onWordSelected: "wordSelected"},
+				{kind: "com.iCottrell.WordList", name: "wordlist",  flex:1, onWordSelected: "wordSelected"},
 					{name: "console", style: "color: white; background-color: white; padding: 4px; border:none"},
 					{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
 						{kind: enyo.Button, name: "addWordButton", caption: "Add Word", flex:1, onclick: "addWordOpen"},
