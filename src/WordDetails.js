@@ -11,7 +11,7 @@ enyo.kind({
 			]}
 		]},
 		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
-			{kind: "Button", caption: "Play Sound", name: "play", flex:1 , onclick:"playSound"}
+			{kind: "Button", caption: "Speak", name: "play", flex:1 , onclick:"playSound"}
 		]},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge", showing:true}
