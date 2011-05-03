@@ -8,7 +8,7 @@ enyo.kind({
 		{name: "dividerTitle", className: "title-photo"},
 		{kind: "ImageView", flex: 1, onGetLeft: "getLeft", onGetRight: "getRight", pack: "center"},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
-			{kind: "SpinnerLarge"}
+			{kind: "SpinnerLarge", showing:true}
 		]}
 	],
 	

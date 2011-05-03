@@ -22,7 +22,11 @@ enyo.kind({
 				{kind: "com.iCottrell.PhotoViewerCarousel", name:"photos", flex:2},
 				{kind: "com.iCottrell.WordDetails", name: "details", flex:1},			
 			]}
-		]}
+		]},
+		{kind: "AppMenu", components: [
+			{caption: "About", onclick: "openAbout"}
+		]},
+		{kind: "com.iCottrell.FirstWordsAbout", name:"about"}
 	], 
 	create: function(){
 		this.inherited(arguments);
@@ -64,5 +68,14 @@ enyo.kind({
 	},
 	refreshWordList: function(){
 		this.$.wordlist.loadData(null);
+	},
+	openAbout: function (inSender, inEvent){
+		this.$.about.openAtCenter();
+	},
+	openAppMenuHandler: function() {
+	    this.$.appMenu.open();
+	},
+	closeAppMenuHandler: function() {
+	    this.$.appMenu.close();
 	}
 });

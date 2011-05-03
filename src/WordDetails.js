@@ -10,9 +10,11 @@ enyo.kind({
 				{name: "defstring"}
 			]}
 		]},
-		{kind: "Button", caption: "Play Sound", name: "play", className:"bottom-background", onclick:"playSound"},
+		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
+			{kind: "Button", caption: "Play Sound", name: "play", flex:1 , onclick:"playSound"}
+		]},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
-			{kind: "SpinnerLarge"}
+			{kind: "SpinnerLarge", showing:true}
 		]},
 		{kind: "Sound", name: "sound", preload:false}
 	],

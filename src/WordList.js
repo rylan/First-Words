@@ -13,7 +13,6 @@ enyo.kind({
 				{name: "itemDate", className: "item-date"}
 			]}
 		]}
-	
 	],
 	create: function() {
 		this.inherited(arguments);

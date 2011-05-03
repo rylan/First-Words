@@ -8,10 +8,10 @@ enyo.kind({
 	},
 	components: [
 		{kind: "RowGroup", caption: "Add Word", components: [
-			{kind: "FancyInput", hint: "Enter word", name:"word"},						
+			{kind: "Input", hint: "Enter word", name:"word"},						
 			{kind: "DatePicker", name: "datePicker", label: "Date", minYear: 2009, onChange: "wordDate"},
-			{kind: "FancyInput", name: "keywords", hint: "Keywords -- Optional, used to improve image search results (separated by ',')", label:"Word"},
-			{kind: "FancyRichText", name:"wordDefinition", hint:"Custom definition -- Optional"}	
+			{kind: "Input", name: "keywords", hint: "Keywords -- Optional, used to improve image search results (separated by ',')", label:"Word"},
+			{kind: "RichText", name:"wordDefinition", hint:"Custom definition -- Optional"}	
 		]},
 		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", components: [
 			{kind: "Button", caption: "Add", flex:1, onclick: "addWord"},
