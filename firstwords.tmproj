@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>src/AddWordDialog.js</string>
+	<string>src/FirstWords.js</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -21,20 +21,6 @@
 	<integer>200</integer>
 	<key>metaData</key>
 	<dict>
-		<key>depends.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>24</integer>
-				<key>line</key>
-				<integer>8</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 		<key>index.html</key>
 		<dict>
 			<key>caret</key>
@@ -48,36 +34,6 @@
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
-		</dict>
-		<key>src/AddWordDialog.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>28</integer>
-				<key>line</key>
-				<integer>21</integer>
-			</dict>
-			<key>columnSelection</key>
-			<false/>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>27</integer>
-			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>21</integer>
-			</dict>
-			<key>selectTo</key>
-			<dict>
-				<key>column</key>
-				<integer>28</integer>
-				<key>line</key>
-				<integer>21</integer>
-			</dict>
 		</dict>
 		<key>src/FirstWords.css</key>
 		<dict>
@@ -98,9 +54,9 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>65</integer>
 				<key>line</key>
-				<integer>44</integer>
+				<integer>5</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
@@ -111,16 +67,16 @@
 			<key>selectFrom</key>
 			<dict>
 				<key>column</key>
-				<integer>2</integer>
+				<integer>43</integer>
 				<key>line</key>
-				<integer>32</integer>
+				<integer>5</integer>
 			</dict>
 			<key>selectTo</key>
 			<dict>
 				<key>column</key>
-				<integer>3</integer>
+				<integer>65</integer>
 				<key>line</key>
-				<integer>44</integer>
+				<integer>5</integer>
 			</dict>
 		</dict>
 		<key>src/FirstWordsAbout.js</key>
@@ -128,9 +84,23 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>47</integer>
+				<integer>25</integer>
 				<key>line</key>
 				<integer>9</integer>
+			</dict>
+			<key>firstVisibleColumn</key>
+			<integer>0</integer>
+			<key>firstVisibleLine</key>
+			<integer>0</integer>
+		</dict>
+		<key>src/PhotoViewerCarousel.js</key>
+		<dict>
+			<key>caret</key>
+			<dict>
+				<key>column</key>
+				<integer>38</integer>
+				<key>line</key>
+				<integer>10</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -142,58 +112,43 @@
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>64</integer>
+				<integer>23</integer>
 				<key>line</key>
-				<integer>13</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>src/WordList.js</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>2</integer>
-				<key>line</key>
-				<integer>61</integer>
+				<integer>31</integer>
 			</dict>
 			<key>columnSelection</key>
 			<false/>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
-			<integer>36</integer>
+			<integer>8</integer>
 			<key>selectFrom</key>
-			<dict>
-				<key>column</key>
-				<integer>1</integer>
-				<key>line</key>
-				<integer>59</integer>
-			</dict>
-			<key>selectTo</key>
 			<dict>
 				<key>column</key>
 				<integer>2</integer>
 				<key>line</key>
-				<integer>61</integer>
+				<integer>30</integer>
+			</dict>
+			<key>selectTo</key>
+			<dict>
+				<key>column</key>
+				<integer>23</integer>
+				<key>line</key>
+				<integer>31</integer>
 			</dict>
 		</dict>
 	</dict>
 	<key>openDocuments</key>
 	<array>
 		<string>src/FirstWords.js</string>
-		<string>src/AddWordDialog.js</string>
-		<string>src/WordList.js</string>
-		<string>depends.js</string>
-		<string>src/FirstWordsAbout.js</string>
+		<string>src/PhotoViewerCarousel.js</string>
 		<string>src/FirstWords.css</string>
+		<string>src/WordDetails.js</string>
+		<string>src/FirstWordsAbout.js</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{679, 45}, {838, 833}}</string>
+	<string>{{874, 196}, {838, 833}}</string>
 </dict>
 </plist>
