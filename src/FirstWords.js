@@ -1,7 +1,8 @@
 enyo.kind({
-	kind:"Control",
 	name: "com.iCottrell.FirstWords",
-	kind: enyo.VFlexBox, components:[
+	flex:1,
+	kind: enyo.VFlexBox, 
+	components:[
 		{kind: enyo.HFlexBox, className:"topBackground", components:[
 			{kind:"Image", src:"img/firstWords.png", className:"imageLogo"},
 			{content: "- An Interactive Guide", style:"margin-top:15px;margin-left:5px; font-size:12pt"}
@@ -71,11 +72,5 @@ enyo.kind({
 	},
 	openAbout: function (inSender, inEvent){
 		this.$.about.openAtCenter();
-	},
-	openAppMenuHandler: function() {
-	    this.$.appMenu.open();
-	},
-	closeAppMenuHandler: function() {
-	    this.$.appMenu.close();
 	}
 });
