@@ -21,18 +21,24 @@ enyo.kind({
 				{name: "defstring"}
 			]}
 		]},
+		{kind: enyo.HFlexBox, name: "dictlogo", showing: false, style:"background-color:white", components:[
+			{kind:"Spacer"},
+			{kind:"Image", src:"img/dict_blue.png", onclick:"openDictionarySite"},
+		]},
 		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
-			{kind: "Button", caption: "Speak", name: "play", flex:1 , onclick:"playSound"}
+			{kind: "Button", caption: "Speak", showing: false, name: "play", flex:1 , onclick:"playSound"},
 		]},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge", showing:true}
 		]},
-		{kind: "Sound", name: "sound", preload:false}
+		{kind: "Sound", name: "sound", preload:false},
+		{name: "browser", kind: "PalmService", service: "palm://com.palm.applicationManager/", method: "open", onSuccess: "openedBrowser", onFailure: "genericFailure"}
 	],
 	create: function() {
 		this.wordData = [];
 	    this.inherited(arguments);
 		this.wordDB = null;
+		this.child_id = 0;
 	},
 	setDB: function(db){
 		this.wordDB = db;
@@ -72,9 +78,11 @@ enyo.kind({
 			this.$.deflist.reset();
 			var url = "http://api-pub.dictionary.com/v001?vid="+this.$.config.getDictionaryAPIKey()+"&q="+word.word+"&type=define&site=dictionary";
 			this.$.dictionaryLookup.setUrl(url);
+			this.$.dictlogo.show();
 			var r = this.$.dictionaryLookup.call();
 			this.$.scrim.show();
 		}else{
+			this.$.dictlogo.hide();
 			this.wordData.push(["Custom Definition", word.definition]);
 			this.$.deflist.refresh();
 			var url = "http://api-pub.dictionary.com/v001?vid="+this.$.config.getDictionaryAPIKey()+"&q="+word.word+"&type=define&site=dictionary";
@@ -87,19 +95,32 @@ enyo.kind({
 		var dictionary = inResponse;
 		if(dictionary.getElementsByTagName("pron")[0]){
 			this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
-		}else{
+		}else {
 			this.audiofile = null;
-		}	
+		}
+		if(this.audiofile){
+			this.$.play.show();
+			this.$.empty.hide();
+		}else{
+			this.$.empty.show();
+			this.$.play.hide();
+		}
 	},
 	gotLookupResults: function(inSender, inResponse, inRequest) {
 		this.$.scrim.hide();
 		var dictionary = inResponse;
 		if(dictionary.getElementsByTagName("pron")[0]){
 			this.audiofile = dictionary.getElementsByTagName("pron")[0].getAttribute("audiofile");
-			this.$.play.show();
+			
 		}else{
 			this.audiofile = null;
+		}
+		if(this.audiofile){
+			this.$.empty.hide();
+			this.$.play.show();
+		}else{
 			this.$.play.hide();
+			this.$.empty.show();
 		}
 	
 		var ps = dictionary.getElementsByTagName("partofspeech");
@@ -118,5 +139,11 @@ enyo.kind({
 	gotLookupFailure: function() {
 		this.$.scrim.hide();
 		this.log("got lookup failure!");
+	},
+	openDictionarySite: function(){
+		this.$.browser.call({
+				id: "com.palm.app.browser", 
+				params:{target: "http://www.Dictionary.com"}
+			});
 	}
 });

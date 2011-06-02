@@ -30,13 +30,17 @@ enyo.kind({
 		this.data = [];
 		this.selectedWord ="";
 		this.wordDB = null;
+		this.child_id = 0;
 	},
 	setDB: function(db){
 		this.wordDB = db;
 	},
+	setChildId: function(id){
+		this.child_id = id;
+	},
 	loadData: function() {
 		if(this.wordDB){
-			var queryWordList = 'SELECT word, whendate, definition, keywords FROM firstwords;'
+			var queryWordList = 'SELECT word, whendate, definition, keywords FROM firstwords where child ="'+this.child_id+'";'
 			try {
 				this.wordDB.transaction(
 					enyo.bind(this, (function (transaction) {
@@ -135,7 +139,7 @@ enyo.kind({
 		return this.selectedWord;
 	},
 	deleteItem: function (inSender, inIndex){
-		var sqlDelete = 'DELETE FROM firstwords WHERE word="'+this.data[inIndex].word+'";'
+		var sqlDelete = 'DELETE FROM firstwords WHERE word="'+this.data[inIndex].word+'" AND child="'+this.child_id+'";'
 		try {
 			this.wordDB.transaction(
 				enyo.bind(this, (function (transaction) {
@@ -144,7 +148,7 @@ enyo.kind({
 			);
 		}
 		catch(e){
-			console.log(e);
+			this.error(e);
 		}
 	},
 	deleteDataHandler: function(){

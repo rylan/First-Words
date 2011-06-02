@@ -32,6 +32,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.wordDB = null;
+		this.child_id = 0;
 	},
 	setDB: function(db){
 		this.wordDB = db;
@@ -39,14 +40,16 @@ enyo.kind({
 	wordDate: function(){
  		return true;		
 	},
- 
+ 	setChildId: function(id){
+		this.child_id = id;
+	},
 	addWord: function(){
 		if(this.wordDB !== null & this.$.word.getValue() !== ""){
 			var word = this.$.word.getValue();
 			var keywords =  this.$.keywords.getValue(); 
 			var def =  this.$.wordDefinition.getValue();
 			var date = new Date( this.$.datePicker.getValue()).getTime() ;
-			var sqlinsert = 'INSERT INTO firstwords (word, whendate, definition, keywords) VALUES ("'+ word + '","' + date + '","' + def + '","' + keywords + '");'
+			var sqlinsert = 'INSERT INTO firstwords (word, whendate, definition, keywords, child) VALUES ("'+ word + '","' + date + '","' + def + '","' + keywords + '","' + this.child_id + '");'
 			this.wordDB.transaction (
 				enyo.bind(this,(function (transaction){
 					transaction.executeSql(sqlinsert, [], enyo.bind(this,this.createRecordDataHandler), enyo.bind(this,this.errorHandler)); 

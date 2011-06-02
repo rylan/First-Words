@@ -43,9 +43,10 @@ enyo.kind({
 	create: function(){
 		this.inherited(arguments);
 		this.wordDB = openDatabase('FirstWordsDB', '1.0', 'First Words Data Store', '65536');
+		this.child_id = 0; //Default Child
 		try{
 			this.nullHandleCount=0;
-			var sqlTable = 'CREATE TABLE firstwords (word TEXT NOT NULL, whendate TEXT NOT NULL, definition TEXT, keywords TEXT);'
+			var sqlTable = 'CREATE TABLE firstwords (word TEXT NOT NULL, whendate TEXT NOT NULL, definition TEXT, keywords TEXT, child INTEGER NOT NULL);'
 			this.wordDB.transaction(
 				enyo.bind(this, (function (transaction) {
 					transaction.executeSql(sqlTable, [], enyo.bind(this,this.createTableDataHandler), enyo.bind(this,this.errorHandler));
@@ -53,7 +54,7 @@ enyo.kind({
 			);
 		}
 		catch(e){
-			console.log(e);
+			this.error(e);
 		}		
 	},
 	createTableDataHandler: function(transaction, results) 
