@@ -11,22 +11,23 @@
 
 enyo.kind({
 	name: "com.iCottrell.AddWordDialog", 
-	kind: enyo.Popup, 
+	kind: enyo.ModalDialog, 
 	layoutKind: "VFlexLayout",
-	width: "73%", style: "overflow: hidden",
+	width: "70%", 
+	caption: "Add Word",
 	events:{
 		onWordAdded: ""
 	},
 	components: [
-		{kind: "RowGroup", caption: "Add Word", components: [
+		{kind: "RowGroup",  components: [
 			{kind: "Input", hint: "Enter word", name:"word"},						
 			{kind: "DatePicker", name: "datePicker", label: "Date", minYear: 2009, onChange: "wordDate"},
 			{kind: "Input", name: "keywords", hint: "Keywords -- Optional, used to improve image search results (separated by ',')", label:"Word"},
 			{kind: "RichText", name:"wordDefinition", hint:"Custom definition -- Optional"}	
 		]},
 		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", components: [
-			{kind: "Button", caption: "Add", flex:1, onclick: "addWord"},
-			{kind: "Button", caption: "Cancel", onclick:"cancelDialog", flex:1}
+			{kind: "Button", caption: "Add", flex:1, className:"enyo-button-blue", onclick: "addWord"},
+			{kind: "Button", caption: "Cancel", className:"enyo-button-dark", onclick:"cancelDialog", flex:1}
 		]}
 	],
 	create: function() {
@@ -50,6 +51,7 @@ enyo.kind({
 			var def =  this.$.wordDefinition.getValue();
 			var date = new Date( this.$.datePicker.getValue()).getTime() ;
 			var sqlinsert = 'INSERT INTO firstwords (word, whendate, definition, keywords, child) VALUES ("'+ word + '","' + date + '","' + def + '","' + keywords + '","' + this.child_id + '");'
+			this.log(sqlinsert);
 			this.wordDB.transaction (
 				enyo.bind(this,(function (transaction){
 					transaction.executeSql(sqlinsert, [], enyo.bind(this,this.createRecordDataHandler), enyo.bind(this,this.errorHandler)); 
@@ -65,7 +67,7 @@ enyo.kind({
 		this.close();
 	},
 	errorHandler: function (transaction, error){
-		console.log(error);
+		this.error(error);
 		this.resetDialog();
 		this.close();
 	},

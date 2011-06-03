@@ -15,7 +15,7 @@ enyo.kind({
 	kind: enyo.VFlexBox,
 	events: {
 		onWordSelected: "",
-		onWordDeselected:""
+		onWordDeleted: ""
 	},
 	components: [
 		{flex: 1, name: "list", kind: "VirtualList", className: "list", onSetupRow: "listSetupRow", components: [
@@ -62,7 +62,7 @@ enyo.kind({
 			}
 		}
 		catch(e) {
-			console.log(e);
+			this.error(e);
 		}
 		this.data.sort(function(inA, inB) {
 			var an = inA.word;
@@ -74,7 +74,7 @@ enyo.kind({
 		this.$.list.refresh();
 	},
 	errorHandler: function(transaction, error) {
-		console.log(error);
+		this.error(error);
 	},
 	queryResponse: function(inSender, inResponse) {
 		this.data = inResponse.results;
@@ -151,9 +151,15 @@ enyo.kind({
 		catch(e){
 			this.error(e);
 		}
+		
+		if(this.data[inIndex].word === this.getSelectedWord().word){
+			this.selectedWord = null;
+		}
+		
 	},
 	deleteDataHandler: function(){
 		this.loadData();
 		this.$.list.refresh();
+		this.doWordDeleted();
 	}
 });

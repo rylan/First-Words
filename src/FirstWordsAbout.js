@@ -11,9 +11,9 @@
 
 enyo.kind({
 	name: "com.iCottrell.FirstWordsAbout",
-	kind: enyo.Popup, 
+	kind: enyo.ModalDialog, 
 	layoutKind: "VFlexLayout",
-	style: "overflow: hidden",
+	width: "45%", 
 	components: [
 		{kind: "HFlexBox", components:[
 			{kind: "Image", src:"img/icon.png",  className:"aboutimg"}, 
@@ -24,9 +24,13 @@ enyo.kind({
 				{content: "Direct all inquries to dev@icottrell.com", className:"abouttxt"}
 			]}
 		]},
+		{kind: "Button", caption: $L("OK"), onclick: "closePopup", className:"enyo-button-blue", style: "margin-top:10px"},
 		{name: "browser", kind: "PalmService", service: "palm://com.palm.applicationManager/", method: "open", onSuccess: "openedBrowser", onFailure: "genericFailure"}
 	],
 	create: function(){
 		this.inherited(arguments);
+	},
+	closePopup: function(){
+		this.close();
 	}
 });

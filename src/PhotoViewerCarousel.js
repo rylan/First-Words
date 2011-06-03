@@ -59,6 +59,12 @@ enyo.kind({
 			var r = this.$.googleSearch.call();
 			this.$.scrim.show();
 			return true;
+		}else{
+			this.photos = [];
+			this.index = 0;
+			this.filter = "";
+			this.keywords = [];
+			this.$.dividerTitle.setContent(this.filter);
 		}
 	},
 	gotSearchResults: function ( inSender, inResponse, inRequest) {
