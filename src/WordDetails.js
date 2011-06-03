@@ -1,13 +1,13 @@
-/******************************************************************************* *
-* Copyright (c) 2010 Rylan Cottrell. iCottrell.com. Calgary, Alberta, Canada.
-* http://www.icottrell.com.  All rights reserved.
-* This implementation is not under an open license of any form at this time. People may
-* utilize it only when we have explicitly authorized them to do so and only for purposes
-* that we have explicitly agreed to. We retain all rights to it. These restrictions are
-* likely to be eased in future. For now, if you wish to use the project for any purpose
-* that we have not already agreed to, please talk to us about it: we are always happy to
-* collaborate.
-******************************************************************************/
+/*******************************************************************************
+ * Copyright (c) 2010 Rylan Cottrell. iCottrell.com.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *    Rylan Cottrell - initial API and implementation and/or initial documentation
+ *******************************************************************************/
 
 enyo.kind({
 	name: "com.iCottrell.WordDetails",
