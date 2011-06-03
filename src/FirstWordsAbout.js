@@ -18,7 +18,7 @@ enyo.kind({
 		{kind: "HFlexBox", components:[
 			{kind: "Image", src:"img/icon.png",  className:"aboutimg"}, 
 			{kind: "VFlexBox", flex:3, components:[
-				{content: "First Words", className:"abouth1"},
+				{content: "Baby's First Words", className:"abouth1"},
 				{content: "Version 1.0.0", className: "aboutver"},
 				{content: "Developed by iCottrell.com", className:"abouttxt"},
 				{content: "Direct all inquries to dev@icottrell.com", className:"abouttxt"}
