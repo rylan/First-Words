@@ -100,9 +100,7 @@ enyo.kind({
 		}
 		if(this.audiofile){
 			this.$.play.show();
-			this.$.empty.hide();
 		}else{
-			this.$.empty.show();
 			this.$.play.hide();
 		}
 	},
@@ -116,11 +114,9 @@ enyo.kind({
 			this.audiofile = null;
 		}
 		if(this.audiofile){
-			this.$.empty.hide();
 			this.$.play.show();
 		}else{
 			this.$.play.hide();
-			this.$.empty.show();
 		}
 	
 		var ps = dictionary.getElementsByTagName("partofspeech");

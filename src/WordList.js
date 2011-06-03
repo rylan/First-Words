@@ -14,7 +14,8 @@ enyo.kind({
 	flex:2,
 	kind: enyo.VFlexBox,
 	events: {
-		onWordSelected: ""
+		onWordSelected: "",
+		onWordDeselected:""
 	},
 	components: [
 		{flex: 1, name: "list", kind: "VirtualList", className: "list", onSetupRow: "listSetupRow", components: [
@@ -49,7 +50,7 @@ enyo.kind({
 				);
 			}
 			catch(e){
-				console.log(e);
+				this.error(e);
 			}
 		}
 	},

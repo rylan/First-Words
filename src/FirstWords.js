@@ -26,8 +26,9 @@ enyo.kind({
 					{name: "console", style: "color: white; background-color: white; padding: 4px; border:none"},
 					{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
 						{kind: enyo.Button, name: "addWordButton", caption: "Add Word", flex:1, onclick: "addWordOpen"},
-						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog", onWordAdded:"refreshWordList"},
-						{name: "emptyspace", flex: 1}
+						{kind: enyo.Button, name: "editWordButton", caption: "Edit Word", showing:false, flex:1, onclick: "editWordOpen"},
+						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog", onWordAdded:"refreshWordList", onWordSelected:"wordSelect", onWordDeselected:"wordDeselect"},
+						{kind: "com.iCottrell.EditWordDialog", name:"editWordDialog", onWordUpdated:"refreshWordList"}
 					],}
 				]},
 	    	{kind: enyo.VFlexBox, flex: 4, style:"border-left: 1px solid silver;", components: [
@@ -63,6 +64,7 @@ enyo.kind({
 		this.$.details.setDB(this.wordDB);
 		this.$.wordlist.setDB(this.wordDB);
 		this.$.addWordDialog.setDB(this.wordDB);
+		this.$.editWordDialog.setDB(this.wordDB);
 		this.$.wordlist.loadData();
 	},
 	errorHandler: function(transaction, error){
@@ -70,19 +72,28 @@ enyo.kind({
 		this.$.details.setDB(this.wordDB);
 		this.$.wordlist.setDB(this.wordDB);
 		this.$.addWordDialog.setDB(this.wordDB);
+		this.$.editWordDialog.setDB(this.wordDB);
 		this.$.wordlist.loadData();
 	},
 	wordSelected: function(){
+		this.$.editWordButton.show();
 		this.$.photos.getImages(this.$.wordlist.getSelectedWord());
 		this.$.details.updateDefinition(this.$.wordlist.getSelectedWord());
 	},
 	addWordOpen: function(){
 		this.$.addWordDialog.openAtCenter();
 	},
+	editWordOpen: function(){
+		this.$.editWordDialog.openDialog(this.$.wordlist.getSelectedWord());
+	},
 	refreshWordList: function(){
 		this.$.wordlist.loadData(null);
 	},
 	openAbout: function (inSender, inEvent){
 		this.$.about.openAtCenter();
+	},
+	wordDeselect: function(){
+		this.$.editWordButton.hide();
+		this.$.editWordDialog.resetDialog();
 	}
 });
