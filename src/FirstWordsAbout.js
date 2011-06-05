@@ -24,7 +24,11 @@ enyo.kind({
 				{content: "Direct all inquries to dev@icottrell.com", className:"abouttxt"}
 			]}
 		]},
-		{kind: "Button", caption: $L("OK"), onclick: "closePopup", className:"enyo-button-blue", style: "margin-top:10px"},
+		{kind: "HFlexBox", components:[
+			{kind:"Spacer"},
+			{content:"&copy;Copyright 2011 iCottrell.com", style:"font-size:8pt;padding:5px;"}
+		]},
+		{kind: "Button", caption: $L("Close"), onclick: "closePopup", className:"enyo-button-blue", style: "margin-top:10px"},
 		{name: "browser", kind: "PalmService", service: "palm://com.palm.applicationManager/", method: "open", onSuccess: "openedBrowser", onFailure: "genericFailure"}
 	],
 	create: function(){
