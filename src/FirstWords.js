@@ -7,6 +7,7 @@
  *
  * Contributors:
  *    Rylan Cottrell - initial API and implementation and/or initial documentation
+ *    Edward Edwards - Baby's First Words Logo design
  *******************************************************************************/
 
 enyo.kind({
@@ -15,8 +16,8 @@ enyo.kind({
 	kind: enyo.VFlexBox, 
 	components:[
 		{kind: enyo.HFlexBox, className:"topBackground", components:[
-			{kind:"Image", src:"img/firstWords.png", className:"imageLogo"},
-			{content: "- An Interactive Guide", style:"margin-top:15px;margin-left:5px; font-size:12pt"}
+			{kind:"Image", src:"img/firstwords.png", className:"imageLogo"},
+			{content: "An Interactive Guide", style:"margin-top:28px;font-size:12pt"}
 		]},
 		{kind: enyo.HFlexBox, flex: 1, layoutKind: "HFlexLayout", wideWidth: 800, components: [
 			{flex:2, kind: enyo.VFlexBox, components: [

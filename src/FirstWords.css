@@ -50,8 +50,11 @@
 	border-bottom: 1px solid black;
 }
 .imageLogo{
-	height:45px;
+	height:50px;
 	margin-left:5px;
+}
+.modal_about{
+	background-color: snow;
 }
 .aboutimg{
 	height:45;
