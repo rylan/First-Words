@@ -7,7 +7,7 @@
  *
  * Contributors:
  *    Rylan Cottrell - initial API and implementation and/or initial documentation
- *    Edward Edwards - Baby's First Words Logo design
+ *    
  *******************************************************************************/
 
 enyo.kind({
