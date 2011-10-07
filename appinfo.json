@@ -1,10 +1,11 @@
 {
 	"id": "com.icottrell.firstwords",
-	"version": "1.0.0",
-	"vendor": "iCottrell",
+	"version": "1.0.2",
+	"vendor": "iCottrell.com",
 	"type": "web",
 	"main": "index.html",
 	"title": "Baby's First Words",
 	"icon": "img/icon.png",
-	"uiRevision": 2
+	"uiRevision": 2,
+	"plug-ins": true
 }
