@@ -26,8 +26,7 @@ enyo.kind({
 	create: function() {
 		this.photos = [];
 		this.index = 0;
-		this.filter = "";
-		this.keywords = [];   
+		this.filter = "";   
 	 	this.inherited(arguments);
 	    this.$.dividerTitle.setContent(this.filter);
 		this.getImages(null);
@@ -40,21 +39,33 @@ enyo.kind({
 	addKeywords: function (keys) { 
 		var str = "";
 		for(var i=0; i<keys.length; i++){
-			str+="%20"+keys[i];
+			str = str.concat("%20", keys[i]);
 		}
 		return str;		
 	},
 	getImages: function ( record ) {
+		var keywords = null;
 		if (record){
 			this.filter = record.word;
-			if(!record.keywords && record.keywords.length>0){
-				this.filter+=this.addKeywords(record.keywords);
-			}
-		
 	
+			if(record.keywords){
+				keywords = this.addKeywords(record.keywords.split(","));
+			}
+			this.log("LLL:"+keywords);
 			this.$.dividerTitle.setContent(this.filter);
 			this.photos = [];
-			var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+"&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"
+			if(this.filter == "42"){
+				var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=Hitchhikers%20Guide%20To%20The%20Galaxy&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"
+			} else {
+				if(keywords){
+					this.log(keywords)
+					var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+keywords+"&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"		
+				} else {
+					var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+"&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"	
+				}
+				
+			}
+			
 			this.$.googleSearch.setUrl(url);
 			var r = this.$.googleSearch.call();
 			this.$.scrim.show();
@@ -63,7 +74,6 @@ enyo.kind({
 			this.photos = [];
 			this.index = 0;
 			this.filter = "";
-			this.keywords = [];
 			this.$.dividerTitle.setContent(this.filter);
 		}
 	},

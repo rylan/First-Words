@@ -28,7 +28,7 @@ enyo.kind({
 	create: function() {
 		this.inherited(arguments);
 		this.data = [];
-		this.selectedWord ="";
+		this.selectedWord = null;
 		this.wordDB = null;
 		this.child_id = 0;
 	},

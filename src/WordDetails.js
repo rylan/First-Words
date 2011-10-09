@@ -59,18 +59,28 @@ enyo.kind({
 	},
 	playSound: function(){
 		if(this.pluginReady) {
-			this.log(this.pluginReady);
-			this.log(this.word);
-	       var status = this.$.plugin.callPluginMethod("playAudio",this.word);
-	       this.log("status = " + status);
+			
+			if(this.word.word.toLowerCase() == "lost in space") {
+				this.$.plugin.callPluginMethod("playAudio", "Danger, Will Robinson!");
+			} else if (this.word.word.toLowerCase() == "42"){
+				this.$.plugin.callPluginMethod("playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
+			} else {
+				var status = this.$.plugin.callPluginMethod("playAudio", this.word.word);	
+
+				if(!this.word.definition | this.word.definition ===""){
+					this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
+				} else {
+					this.$.plugin.callPluginMethod("playAudio", this.word.definition);
+				}
+			}
 		}
 	}, 
 	getGroupName: function(inIndex){
 		var a = null;
 		if(this.wordData[inIndex-1]){ 
-			a = this.wordData[inIndex-1][0];
+			a = this.wordData[inIndex-1].partOfSpeech;
 		}
-		var b = this.wordData[inIndex][0];
+		var b = this.wordData[inIndex].partOfSpeech;
 		return a!=b ? b: null;
 	},
 	setupDivider: function(inIndex){
@@ -82,37 +92,39 @@ enyo.kind({
 	listSetupRow: function(inSender, inIndex){
 		if(this.wordData[inIndex]){
 			this.setupDivider(inIndex);
-			this.$.defstring.setContent(this.wordData[inIndex][1][0].toUpperCase()+
-			this.wordData[inIndex][1].substring(1,this.wordData[inIndex][1].length));
+			this.$.defstring.setContent(this.wordData[inIndex].text[0].toUpperCase()+
+			this.wordData[inIndex].text.substring(1,this.wordData[inIndex].text.length));
 			return true;
 		}
 	},
 	updateDefinition: function(wordobj){
 		this.wordData = [];
-		this.word = wordobj.word
-		if(!wordobj.definition | wordobj.definition ===""){
+		this.word = wordobj
+		if(wordobj.word == "42") {
+			var tmp = new Object();
+			tmp.partOfSpeech="DON'T PANIC!";
+			tmp.text="The Hitchhiker's Guide to the Galaxy is a science fiction comedy series created by Douglas Adams.";
+			this.wordData.push(tmp);
+			this.$.deflist.refresh();
+		} else if(!wordobj.definition | wordobj.definition ===""){
 			this.$.deflist.punt();
 			this.$.deflist.reset();
 			var url = "http://api.wordnik.com/v4/word.json/"+wordobj.word+"/definitions?useCanonical=true&api_key="+this.$.config.getDictionaryAPIKey();
 			this.$.dictionaryLookup.setUrl(url);
 			var r = this.$.dictionaryLookup.call();
 			this.$.scrim.show();
-		}else{
-			this.wordData.push(["Custom Definition", wordobj.definition]);
+		}else {
+			var tmp = new Object();
+			tmp.partOfSpeech="Custom Definition";
+			tmp.text=wordobj.definition;
+			this.wordData.push(tmp);
 			this.$.deflist.refresh();
 		}
 		return true;
 	},
 	gotLookupResults: function(inSender, inResponse, inRequest) {
 		this.$.scrim.hide();
-		var dictionary = inResponse;
-		this.wordData = [];
-		if(dictionary){
-			for(var k=0; k < dictionary.length; k++) {
-				this.wordData.push([dictionary[k].partOfSpeech, dictionary[k].text ]);
-			}
-		}
-
+		this.wordData = inResponse;
 		this.$.deflist.refresh();	
 	},
 	gotAudioLookupFailure: function() {
