@@ -10,7 +10,7 @@
  *******************************************************************************/
 enyo.kind({
 	name: "com.iCottrell.EditWordDialog", 
-	kind: enyo.ModalDialog, 
+	kind: "ModalDialog", 
 	layoutKind: "VFlexLayout",
 	width: "70%", 
 	caption: "Edit Word",
@@ -24,7 +24,7 @@ enyo.kind({
 			{kind: "Input", name: "keywords", hint: "Keywords -- Optional, used to improve image search results (separated by ',')", label:"Word"},
 			{kind: "RichText", name:"wordDefinition", hint:"Custom definition -- Optional"}	
 		]},
-		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", components: [
+		{kind: "HFlexBox", layoutKind: "HFlexLayout", components: [
 			{kind: "Button", caption: "Edit", flex:1, className:"enyo-button-blue", onclick: "editWordApply"},
 			{kind: "Button", caption: "Cancel", className:"enyo-button-dark", onclick:"cancelDialog", flex:1}
 		]}

@@ -7,5 +7,6 @@ enyo.depends(
 	"src/AddWordDialog.js",
 	"src/EditWordDialog.js",
 	"src/FirstWordsAbout.js",
+	"src/ReleaseNotes.js",
 	"src/FirstWords.css"
 );

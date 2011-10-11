@@ -13,32 +13,34 @@
 enyo.kind({
 	name: "com.iCottrell.FirstWords",
 	flex:1,
-	kind: enyo.VFlexBox, 
+	kind: "VFlexBox", 
 	components:[
-		{kind: enyo.HFlexBox, className:"topBackground", components:[
+		{kind: "HFlexBox", className:"topBackground", components:[
 			{kind:"Image", src:"img/firstwords.png", className:"imageLogo"},
 			{content: "An Interactive Guide", style:"margin-top:28px;font-size:12pt"}
 		]},
-		{kind: enyo.HFlexBox, flex: 1, layoutKind: "HFlexLayout", wideWidth: 800, components: [
-			{flex:2, kind: enyo.VFlexBox, components: [
+		{kind: "HFlexBox", flex: 1, layoutKind: "HFlexLayout", wideWidth: 800, components: [
+			{flex:2, kind: "VFlexBox", components: [
 				{kind: "com.iCottrell.WordList", name: "wordlist",  flex:1, onWordSelected: "wordSelected", onWordDeleted:"wordDeleted"},
 					{name: "console", style: "color: white; background-color: white; padding: 4px; border:none"},
-					{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
-						{kind: enyo.Button, name: "addWordButton", className:"enyo-button-blue", caption: "Add Word", flex:1, onclick: "addWordOpen"},
-						{kind: enyo.Button, name: "editWordButton", className:"enyo-button-blue", caption: "Edit Word", flex:1, showing:false,  onclick: "editWordOpen"},
+					{kind: "HFlexBox", layoutKind: "HFlexLayout", className: "bottom-background", components: [
+						{kind: "Button", name: "addWordButton", className:"enyo-button-blue", caption: "Add Word", flex:1, onclick: "addWordOpen"},
+						{kind: "Button", name: "editWordButton", className:"enyo-button-blue", caption: "Edit Word", flex:1, showing:false,  onclick: "editWordOpen"},
 						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog", onWordAdded:"refreshWordList", onWordSelected:"wordSelect", onWordDeselected:"wordDeselect"},
 						{kind: "com.iCottrell.EditWordDialog", name:"editWordDialog", onWordUpdated:"refreshWordList"}
 					],}
 				]},
-	    	{kind: enyo.VFlexBox, flex: 5, style:"border-left: 1px solid silver;", components: [
+	    	{kind: "VFlexBox", flex: 5, style:"border-left: 1px solid silver;", components: [
 				{kind: "com.iCottrell.PhotoViewerCarousel", name:"photos", flex:2},
 				{kind: "com.iCottrell.WordDetails", name: "details", flex:1},			
 			]}
 		]},
 		{kind: "AppMenu", components: [
-			{caption: "About", onclick: "openAbout"}
+			{caption: "About", onclick: "openAbout"},
+			{caption: "Release Notes", onclick: "openReleaseNotes"}
 		]},
-		{kind: "com.iCottrell.FirstWordsAbout", name:"about"}
+		{kind: "com.iCottrell.FirstWordsAbout", name:"about"},
+		{kind: "com.iCottrell.ReleaseNotes", name:"release"}
 	], 
 	create: function(){
 		this.inherited(arguments);
@@ -90,6 +92,9 @@ enyo.kind({
 	},
 	openAbout: function (inSender, inEvent){
 		this.$.about.openAtCenter();
+	},
+	openReleaseNotes: function (inSender, inEvent){
+		this.$.release.openAtCenter();
 	},
 	wordDeselect: function(){
 		this.$.editWordButton.hide();

@@ -11,7 +11,7 @@
 enyo.kind({
 	name: "com.iCottrell.WordList",
 	flex:2,
-	kind: enyo.VFlexBox,
+	kind: "VFlexBox",
 	events: {
 		onWordSelected: "",
 		onWordDeleted: ""

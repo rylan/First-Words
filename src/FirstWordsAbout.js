@@ -12,11 +12,11 @@
 
 enyo.kind({
 	name: "com.iCottrell.FirstWordsAbout",
-	kind: enyo.ModalDialog, 
+	kind: "ModalDialog", 
 	layoutKind: "VFlexLayout",
 	width: "45%", 
 	components: [
-		{kind: enyo.HFlexBox, components:[
+		{kind: "HFlexBox", components:[
 			{kind: "Image", src:"img/firstwords.png", style:"height:35px; margin-left:15px;"}
 		 ]},
 		{kind: "HFlexBox", components:[

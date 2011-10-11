@@ -11,13 +11,13 @@
 
 enyo.kind({
 	name: "com.iCottrell.WordDetails",
-	kind: enyo.VFlexBox, components: [
+	kind: "VFlexBox", components: [
 		{kind: "com.iCottrell.config", name: "config"},
-		{kind: enyo.Hybrid, 
+		{kind: "Hybrid", 
 			name: "plugin", 
 			width: 0, 
 			height: 0, 
-			executable: "sdltts", 
+			executable: "lib/sdltts", 
 			takeKeyboardFocus: false, 
 			onPluginReady: "handlePluginReady"},
 		{name: "dictionaryLookup", 
@@ -31,8 +31,8 @@ enyo.kind({
 				{name: "defstring"}
 			]}
 		]},
-		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", className: "bottom-background", components: [
-			{kind: "Button", caption: "Speak", showing: true, name: "play", flex:1 , onclick:"playSound"},
+		{kind: "HFlexBox", layoutKind: "HFlexLayout", className: "bottom-background", components: [
+			{kind: "Button", caption: "Speak", showing: true, className:"enyo-button-blue", name: "play", flex:1 , onclick:"playSound"},
 		]},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge", showing:true}
@@ -64,9 +64,9 @@ enyo.kind({
 				this.$.plugin.callPluginMethod("playAudio", "Danger, Will Robinson!");
 			} else if (this.word.word.toLowerCase() == "42"){
 				this.$.plugin.callPluginMethod("playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
-			} else {
-				var status = this.$.plugin.callPluginMethod("playAudio", this.word.word);	
-
+			} else {	
+				this.$.plugin.callPluginMethod("playAudio", this.word.word);
+				
 				if(!this.word.definition | this.word.definition ===""){
 					this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
 				} else {
@@ -109,7 +109,7 @@ enyo.kind({
 		} else if(!wordobj.definition | wordobj.definition ===""){
 			this.$.deflist.punt();
 			this.$.deflist.reset();
-			var url = "http://api.wordnik.com/v4/word.json/"+wordobj.word+"/definitions?useCanonical=true&api_key="+this.$.config.getDictionaryAPIKey();
+			var url = "http://api.wordnik.com/v4/word.json/"+wordobj.word+"/definitions?useCanonical=true&limit=1&api_key="+this.$.config.getDictionaryAPIKey();
 			this.$.dictionaryLookup.setUrl(url);
 			var r = this.$.dictionaryLookup.call();
 			this.$.scrim.show();

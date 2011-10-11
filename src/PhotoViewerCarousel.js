@@ -11,7 +11,7 @@
 
 enyo.kind({
 	name: "com.iCottrell.PhotoViewerCarousel",
-	kind: enyo.VFlexBox,
+	kind: "VFlexBox",
 	style: "background-color: white;",
 	components: [
 		{kind: "com.iCottrell.config", name: "config"},

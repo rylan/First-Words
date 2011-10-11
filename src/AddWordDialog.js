@@ -11,7 +11,7 @@
 
 enyo.kind({
 	name: "com.iCottrell.AddWordDialog", 
-	kind: enyo.ModalDialog, 
+	kind: "ModalDialog", 
 	layoutKind: "VFlexLayout",
 	width: "70%", 
 	caption: "Add Word",
@@ -25,7 +25,7 @@ enyo.kind({
 			{kind: "Input", name: "keywords", hint: "Keywords -- Optional, used to improve image search results (separated by ',')", label:"Word"},
 			{kind: "RichText", name:"wordDefinition", hint:"Custom definition -- Optional"}	
 		]},
-		{kind: enyo.HFlexBox, layoutKind: "HFlexLayout", components: [
+		{kind: "HFlexBox", layoutKind: "HFlexLayout", components: [
 			{kind: "Button", caption: "Add", flex:1, className:"enyo-button-blue", onclick: "addWord"},
 			{kind: "Button", caption: "Cancel", className:"enyo-button-dark", onclick:"cancelDialog", flex:1}
 		]}
