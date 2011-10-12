@@ -51,14 +51,12 @@ enyo.kind({
 			if(record.keywords){
 				keywords = this.addKeywords(record.keywords.split(","));
 			}
-			this.log("LLL:"+keywords);
 			this.$.dividerTitle.setContent(this.filter);
 			this.photos = [];
 			if(this.filter == "42"){
 				var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=Hitchhikers%20Guide%20To%20The%20Galaxy&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"
 			} else {
 				if(keywords){
-					this.log(keywords)
 					var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+keywords+"&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"		
 				} else {
 					var url = "https://ajax.googleapis.com/ajax/services/search/images?v=1.0&q="+this.filter+"&key="+this.$.config.getGoogleAPIKey()+"&safe=active&rsz=8"	

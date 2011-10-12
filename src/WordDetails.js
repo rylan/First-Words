@@ -11,8 +11,13 @@
 
 enyo.kind({
 	name: "com.iCottrell.WordDetails",
-	kind: "VFlexBox", components: [
-		{kind: "com.iCottrell.config", name: "config"},
+	kind: "VFlexBox", 
+	components: [
+		{name: "dictionaryLookup", 
+			kind: "WebService", 
+			handleAs: "json", 
+			onSuccess: "gotLookupResults", 
+			onFailure: "gotLookupFailure"},
 		{kind: "Hybrid", 
 			name: "plugin", 
 			width: 0, 
@@ -20,19 +25,21 @@ enyo.kind({
 			executable: "lib/sdltts", 
 			takeKeyboardFocus: false, 
 			onPluginReady: "handlePluginReady"},
-		{name: "dictionaryLookup", 
-			kind: "WebService", 
-			handleAs: "json", 
-			onSuccess: "gotLookupResults", 
-			onFailure: "gotLookupFailure"},
-		{flex: 2, name: "deflist", kind: "VirtualList", className: "deflist", onSetupRow: "listSetupRow", components: [
-			{kind: "Divider", name: "defdivider"},
-			{kind: "Item", className: "item", components: [
-				{name: "defstring"}
-			]}
-		]},
+		{kind: "com.iCottrell.config", name: "config"},
+		//{kind:"HFlexBox", flex: 2, components: [
+			{flex:2, name: "deflist", kind: "VirtualList", className: "deflist", onSetupRow: "listSetupRow", components: [
+				{kind: "Divider", name: "defdivider"},
+				{kind: "Item", className: "item", components: [
+					{name: "defstring"}
+				]}
+			]},
+			//{kind:"VFlexBox",  components:[ 
+			//	{kind: enyo.AnimatedImage, name:"roboto", className: "enyo-spinner-large", easingFunc: enyo.easing.linear, imageHeight: 128, imageCount: 12, repeat: -1}
+			//]}
+		//]},
 		{kind: "HFlexBox", layoutKind: "HFlexLayout", className: "bottom-background", components: [
-			{kind: "Button", caption: "Speak", showing: true, className:"enyo-button-blue", name: "play", flex:1 , onclick:"playSound"},
+			{content:" ", name:"empty"},
+			{kind: "Button", caption: "Speak", showing: false, className:"enyo-button-blue", name: "play", flex:1 , onclick:"playSound"},
 		]},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge", showing:true}
@@ -49,31 +56,48 @@ enyo.kind({
 		this.wordDB = null;
 		this.child_id = 0;
 		this.word = null;
+		//this.talkcount = 0;
 	},
 	setDB: function(db){
 		this.wordDB = db;
 	},
 	handlePluginReady: function(inSender) {
-		console.log("plugin initialized");
 		this.pluginReady = true;
 	},
+	//beginTalk: function(){
+	//	this.$.roboto.start();
+	//},
+	//endTalk: function(){
+	//	this.talkcount--;
+	//	if(this.talkcount <= 0) {
+	//		this.$.roboto.stop();	
+	//		this.log("stop was called");
+	//	}
+	//},
 	playSound: function(){
 		if(this.pluginReady) {
-			
+		//	this.$.roboto.start();
 			if(this.word.word.toLowerCase() == "lost in space") {
-				this.$.plugin.callPluginMethod("playAudio", "Danger, Will Robinson!");
+				//this.talkcount++;
+				this.$.plugin.callPluginMethod( "playAudio", "Danger, Will Robinson!");
 			} else if (this.word.word.toLowerCase() == "42"){
-				this.$.plugin.callPluginMethod("playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
+				//this.talkcount++;
+				this.$.plugin.callPluginMethod( "playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
 			} else {	
-				this.$.plugin.callPluginMethod("playAudio", this.word.word);
+				//this.talkcount++;
+				this.$.plugin.callPluginMethod( "playAudio", this.word.word);
 				
 				if(!this.word.definition | this.word.definition ===""){
+					//this.talkcount++;
 					this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
 				} else {
+					//this.talkcount++;
 					this.$.plugin.callPluginMethod("playAudio", this.word.definition);
 				}
 			}
+			
 		}
+		
 	}, 
 	getGroupName: function(inIndex){
 		var a = null;
@@ -105,8 +129,18 @@ enyo.kind({
 			tmp.partOfSpeech="DON'T PANIC!";
 			tmp.text="The Hitchhiker's Guide to the Galaxy is a science fiction comedy series created by Douglas Adams.";
 			this.wordData.push(tmp);
+			this.$.empty.hide();
+			this.$.play.show();
 			this.$.deflist.refresh();
-		} else if(!wordobj.definition | wordobj.definition ===""){
+		} else if(this.word.word.toLowerCase() == "lost in space"){
+			var tmp = new Object();
+			tmp.partOfSpeech="Danger!";
+			tmp.text="It is October 16, 1997 and the United States is proceeding towards the launch of one of history's great adventures: man's colonization of deep space. The Jupiter 2, a futuristic saucer-shaped spaceship, mission is to take a single family on a five-and-a-half-year journey to a planet of the nearby star Alpha Centauri, which space probes reveal possesses ideal conditions for human life. The Robinson family was selected from among two million volunteers for this mission. The family includes Professor John Robinson, his wife, Maureen, their children, Judy, Penny, and Will. They will be accompanied by their pilot, US Space Corps Major Donald West, who is trained to fly the ship in the unlikely event that its sophisticated automatic guidance system malfunctions.";
+			this.wordData.push(tmp);
+			this.$.empty.hide();
+			this.$.play.show();
+			this.$.deflist.refresh();
+		}else if(!wordobj.definition | wordobj.definition ===""){
 			this.$.deflist.punt();
 			this.$.deflist.reset();
 			var url = "http://api.wordnik.com/v4/word.json/"+wordobj.word+"/definitions?useCanonical=true&limit=1&api_key="+this.$.config.getDictionaryAPIKey();
@@ -124,6 +158,8 @@ enyo.kind({
 	},
 	gotLookupResults: function(inSender, inResponse, inRequest) {
 		this.$.scrim.hide();
+		this.$.empty.hide();
+		this.$.play.show();
 		this.wordData = inResponse;
 		this.$.deflist.refresh();	
 	},

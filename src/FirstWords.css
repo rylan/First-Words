@@ -69,3 +69,18 @@
 .abouttxt{
 	font-size:11pt;
 }
+
+.robotoAnimated {
+	width: 128px;
+	height: 128px;
+	-webkit-box-sizing: border-box;
+	background-image: url('../img/spinner-large.png');
+}
+
+@media (-webkit-min-device-pixel-ratio:1.5) {
+
+	.robotoAnimated {
+		background-image: url(../img/spinner-large.png);
+		background-size: 128px 1536px;
+	}
+}
