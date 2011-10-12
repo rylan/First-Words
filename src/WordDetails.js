@@ -22,21 +22,21 @@ enyo.kind({
 			name: "plugin", 
 			width: 0, 
 			height: 0, 
-			executable: "lib/sdltts", 
+			executable: "lib/flite_cmu_us_kal16", 
 			takeKeyboardFocus: false, 
 			onPluginReady: "handlePluginReady"},
 		{kind: "com.iCottrell.config", name: "config"},
-		//{kind:"HFlexBox", flex: 2, components: [
+		{kind:"HFlexBox", flex: 2, components: [
 			{flex:2, name: "deflist", kind: "VirtualList", className: "deflist", onSetupRow: "listSetupRow", components: [
 				{kind: "Divider", name: "defdivider"},
 				{kind: "Item", className: "item", components: [
 					{name: "defstring"}
 				]}
 			]},
-			//{kind:"VFlexBox",  components:[ 
-			//	{kind: enyo.AnimatedImage, name:"roboto", className: "enyo-spinner-large", easingFunc: enyo.easing.linear, imageHeight: 128, imageCount: 12, repeat: -1}
-			//]}
-		//]},
+			{kind:"VFlexBox", style:"background-color:white;", components:[ 
+				{kind: enyo.AnimatedImage, name:"roboto", className: "enyo-spinner-large", easingFunc: enyo.easing.linear, imageHeight: 128, imageCount: 12, repeat: -1}
+			]}
+		]},
 		{kind: "HFlexBox", layoutKind: "HFlexLayout", className: "bottom-background", components: [
 			{content:" ", name:"empty"},
 			{kind: "Button", caption: "Speak", showing: false, className:"enyo-button-blue", name: "play", flex:1 , onclick:"playSound"},
@@ -56,7 +56,7 @@ enyo.kind({
 		this.wordDB = null;
 		this.child_id = 0;
 		this.word = null;
-		//this.talkcount = 0;
+		this.talkcount = 0;
 	},
 	setDB: function(db){
 		this.wordDB = db;
@@ -64,40 +64,41 @@ enyo.kind({
 	handlePluginReady: function(inSender) {
 		this.pluginReady = true;
 	},
-	//beginTalk: function(){
-	//	this.$.roboto.start();
-	//},
-	//endTalk: function(){
-	//	this.talkcount--;
-	//	if(this.talkcount <= 0) {
-	//		this.$.roboto.stop();	
-	//		this.log("stop was called");
-	//	}
-	//},
+	endRoboto: function(robo){
+		this.talkcount--;
+		if(this.talkcount <=0) {
+			this.$.roboto.stop();
+		}
+	},
 	playSound: function(){
+		console.log("Test");
 		if(this.pluginReady) {
-		//	this.$.roboto.start();
+			this.$.roboto.start();
+			this.$.plugin.addCallback("playbackComplete", enyo.bind(this, this.endRoboto));
 			if(this.word.word.toLowerCase() == "lost in space") {
-				//this.talkcount++;
-				this.$.plugin.callPluginMethod( "playAudio", "Danger, Will Robinson!");
+				this.talkcount++;
+				this.$.plugin.callPluginMethod("playAudio", "Danger, Will Robinson!");
 			} else if (this.word.word.toLowerCase() == "42"){
-				//this.talkcount++;
-				this.$.plugin.callPluginMethod( "playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
+				this.talkcount++;
+				this.$.plugin.callPluginMethod("playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
 			} else {	
-				//this.talkcount++;
-				this.$.plugin.callPluginMethod( "playAudio", this.word.word);
+				this.talkcount++;
+				this.$.plugin.callPluginMethod("playAudio", this.word.word);
 				
-				if(!this.word.definition | this.word.definition ===""){
-					//this.talkcount++;
-					this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
-				} else {
-					//this.talkcount++;
+				if( !this.word.definition | this.word.definition ===""){
+					this.talkcount++;
+					try{
+						this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
+					} catch(err){
+						this.talkcount--;
+					}
+				} else if(this.word.definition){
+					this.talkcount++;
 					this.$.plugin.callPluginMethod("playAudio", this.word.definition);
 				}
 			}
-			
 		}
-		
+
 	}, 
 	getGroupName: function(inIndex){
 		var a = null;
@@ -152,6 +153,8 @@ enyo.kind({
 			tmp.partOfSpeech="Custom Definition";
 			tmp.text=wordobj.definition;
 			this.wordData.push(tmp);
+			this.$.empty.hide();
+			this.$.play.show();
 			this.$.deflist.refresh();
 		}
 		return true;
