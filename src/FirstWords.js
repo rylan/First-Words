@@ -26,7 +26,7 @@ enyo.kind({
 					{kind: "HFlexBox", layoutKind: "HFlexLayout", className: "bottom-background", components: [
 						{kind: "Button", name: "addWordButton", className:"enyo-button-blue", caption: "Add Word", flex:1, onclick: "addWordOpen"},
 						{kind: "Button", name: "editWordButton", className:"enyo-button-blue", caption: "Edit Word", flex:1, showing:false,  onclick: "editWordOpen"},
-						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog", onWordAdded:"refreshWordList", onWordSelected:"wordSelect", onWordDeselected:"wordDeselect"},
+						{kind: "com.iCottrell.AddWordDialog", name:"addWordDialog", onWordAdded:"refreshWordList", onWordSelected:"wordSelect", showKeyboardWhenOpening: true, onOpen:"addWordOpened", onWordDeselected:"wordDeselect"},
 						{kind: "com.iCottrell.EditWordDialog", name:"editWordDialog", onWordUpdated:"refreshWordList"}
 					],}
 				]},
@@ -40,7 +40,7 @@ enyo.kind({
 			{caption: "Release Notes", onclick: "openReleaseNotes"}
 		]},
 		{kind: "com.iCottrell.FirstWordsAbout", name:"about"},
-		{kind: "com.iCottrell.ReleaseNotes", name:"release"}
+		{kind: "com.iCottrell.ReleaseNotes", name:"release"},
 	], 
 	create: function(){
 		this.inherited(arguments);
@@ -59,8 +59,7 @@ enyo.kind({
 			this.error(e);
 		}		
 	},
-	createTableDataHandler: function(transaction, results) 
-	{	
+	createTableDataHandler: function(transaction, results) {	
 		this.$.photos.setDB(this.wordDB);
 		this.$.details.setDB(this.wordDB);
 		this.$.wordlist.setDB(this.wordDB);
@@ -106,5 +105,10 @@ enyo.kind({
 			this.$.details.updateDefinition( null );
 			this.editWordButton.hide();	
 		}
+	}, 
+	addWordOpened: function(){
+
+		this.$.addWordDialog.setDB(this.wordDB);
+		this.$.addWordDialog.addWordSetFocus();
 	}
 });

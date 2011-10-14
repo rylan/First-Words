@@ -13,14 +13,14 @@ enyo.kind({
 	name: "com.iCottrell.AddWordDialog", 
 	kind: "ModalDialog", 
 	layoutKind: "VFlexLayout",
-	width: "70%", 
 	caption: "Add Word",
 	events:{
 		onWordAdded: ""
 	},
+	width: "70%", 
 	components: [
 		{kind: "RowGroup",  components: [
-			{kind: "Input", hint: "Enter word", name:"word"},						
+			{kind: "Input", hint: "Enter word", name:"word", onkeypress: "handleKeypress"},						
 			{kind: "DatePicker", name: "datePicker", label: "Date", minYear: 2009, onChange: "wordDate"},
 			{kind: "Input", name: "keywords", hint: "Keywords -- Optional, used to improve image search results (separated by ',')", label:"Word"},
 			{kind: "RichText", name:"wordDefinition", hint:"Custom definition -- Optional"}	
@@ -44,6 +44,9 @@ enyo.kind({
  	setChildId: function(id){
 		this.child_id = id;
 	},
+	addWordSetFocus: function() {
+		this.$.word.forceFocusEnableKeyboard();
+	},
 	addWord: function(){
 		if(this.wordDB !== null & this.$.word.getValue() !== ""){
 			var word = this.$.word.getValue();
@@ -60,8 +63,7 @@ enyo.kind({
 		}
 		
 	},
-	createRecordDataHandler: function(transaction, results) 
-	{	
+	createRecordDataHandler: function(transaction, results) {	
 		this.doWordAdded();
 		this.resetDialog();
 		this.close();
@@ -81,6 +83,12 @@ enyo.kind({
 		this.$.keywords.setValue("");
 		this.$.wordDefinition.setValue("");
 		this.$.wordDefinition.setHint("Custom definition -- Optional");
-
+	},
+	handleKeypress: function(inSender, inEvent) {
+		if (inEvent.keyCode == "13") {
+        	this.addWord();
+    	} else {
+        	return this.inherited(arguments);
+      	}
 	}
 });
