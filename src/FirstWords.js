@@ -13,7 +13,8 @@
 enyo.kind({
 	name: "com.iCottrell.FirstWords",
 	flex:1,
-	kind: "VFlexBox", 
+	kind: "Control",
+	layoutKind: "VFlexLayout", 
 	components:[
 		{kind: "HFlexBox", className:"topBackground", components:[
 			{kind:"Image", src:"img/firstwords.png", className:"imageLogo"},
@@ -107,8 +108,7 @@ enyo.kind({
 		}
 	}, 
 	addWordOpened: function(){
-
 		this.$.addWordDialog.setDB(this.wordDB);
 		this.$.addWordDialog.addWordSetFocus();
-	}
+	},
 });
