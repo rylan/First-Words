@@ -37,10 +37,6 @@ enyo.kind({
 				{kind: enyo.AnimatedImage, name:"roboto", className: "robotoAnimated", easingFunc: enyo.easing.linear, imageHeight: 253, imageCount: 3, repeat: -1, onclick:"playSound"}
 			]}
 		]},
-		{kind: "HFlexBox", layoutKind: "HFlexLayout", className: "bottom-background", components: [
-			{content:" ", name:"empty"},
-			{kind: "Button", caption: "Speak", showing: false, className:"enyo-button-blue", name: "play", flex:1 , onclick:"playSound"},
-		]},
 		{kind: "Scrim", layoutKind: "VFlexLayout", align: "center", pack: "center",components: [
 			{kind: "SpinnerLarge", showing:true}
 		]},
@@ -130,16 +126,12 @@ enyo.kind({
 			tmp.partOfSpeech="DON'T PANIC!";
 			tmp.text="The Hitchhiker's Guide to the Galaxy is a science fiction comedy series created by Douglas Adams.";
 			this.wordData.push(tmp);
-			this.$.empty.hide();
-			//this.$.play.show();
 			this.$.deflist.refresh();
 		} else if(this.word.word.toLowerCase() == "lost in space"){
 			var tmp = new Object();
 			tmp.partOfSpeech="Danger!";
 			tmp.text="It is October 16, 1997 and the United States is proceeding towards the launch of one of history's great adventures: man's colonization of deep space. The Jupiter 2, a futuristic saucer-shaped spaceship, mission is to take a single family on a five-and-a-half-year journey to a planet of the nearby star Alpha Centauri, which space probes reveal possesses ideal conditions for human life. The Robinson family was selected from among two million volunteers for this mission. The family includes Professor John Robinson, his wife, Maureen, their children, Judy, Penny, and Will. They will be accompanied by their pilot, US Space Corps Major Donald West, who is trained to fly the ship in the unlikely event that its sophisticated automatic guidance system malfunctions.";
 			this.wordData.push(tmp);
-			this.$.empty.hide();
-		//	this.$.play.show();
 			this.$.deflist.refresh();
 		}else if(!wordobj.definition | wordobj.definition ===""){
 			this.$.deflist.punt();
@@ -153,16 +145,12 @@ enyo.kind({
 			tmp.partOfSpeech="Custom Definition";
 			tmp.text=wordobj.definition;
 			this.wordData.push(tmp);
-			this.$.empty.hide();
-		//	this.$.play.show();
 			this.$.deflist.refresh();
 		}
 		return true;
 	},
 	gotLookupResults: function(inSender, inResponse, inRequest) {
 		this.$.scrim.hide();
-		this.$.empty.hide();
-		//this.$.play.show();
 		this.wordData = inResponse;
 		this.$.deflist.refresh();	
 	},
