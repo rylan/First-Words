@@ -71,16 +71,16 @@
 }
 
 .robotoAnimated {
-	width: 128px;
-	height: 128px;
+	width: 247px;
+	height: 253px;
 	-webkit-box-sizing: border-box;
-	background-image: url('../img/spinner-large.png');
+	background-image: url('../img/Robot.png');
 }
 
 @media (-webkit-min-device-pixel-ratio:1.5) {
 
 	.robotoAnimated {
-		background-image: url(../img/spinner-large.png);
-		background-size: 128px 1536px;
+		background-image: url(../img/Robot.png);
+		background-size: 253px 759px;
 	}
 }
