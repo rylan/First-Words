@@ -53,6 +53,7 @@ enyo.kind({
 		this.child_id = 0;
 		this.word = null;
 		this.talkcount = 0;
+		this.pluginReady = false;
 	},
 	setDB: function(db){
 		this.wordDB = db;
@@ -71,27 +72,35 @@ enyo.kind({
 		if(this.pluginReady) {
 			this.$.roboto.start();
 			this.$.plugin.addCallback("playbackComplete", enyo.bind(this, this.endRoboto));
-			if(this.word.word.toLowerCase() == "lost in space") {
-				this.talkcount++;
-				this.$.plugin.callPluginMethod("playAudio", "Danger, Will Robinson!");
-			} else if (this.word.word.toLowerCase() == "42"){
-				this.talkcount++;
-				this.$.plugin.callPluginMethod("playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
-			} else {	
-				this.talkcount++;
-				this.$.plugin.callPluginMethod("playAudio", this.word.word);
-				
-				if( !this.word.definition | this.word.definition ===""){
+			if(this.word) {
+				if(this.word.word.toLowerCase() == "lost in space") {
 					this.talkcount++;
-					try{
-						this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
-					} catch(err){
-						this.talkcount--;
+					this.$.plugin.callPluginMethod("playAudio", "Danger, Will Robinson!");
+				} else if (this.word.word.toLowerCase() == "42"){
+					this.talkcount++;
+					this.$.plugin.callPluginMethod("playAudio", "The Answer to the Great Question, of Life, the Universe and Everything.    DON'T PANIC!");
+				} else {	
+					this.talkcount++;
+					if(this.word.word){
+						this.$.plugin.callPluginMethod("playAudio", this.word.word);
+					} else {
+						this.$.plugin.callPluginMethod("playAudio", "No word for Nobot to say, please select a word.");
 					}
-				} else if(this.word.definition){
-					this.talkcount++;
-					this.$.plugin.callPluginMethod("playAudio", this.word.definition);
+					if( !this.word.definition | this.word.definition ===""){
+						this.talkcount++;
+						try{
+							this.$.plugin.callPluginMethod("playAudio", this.wordData[0].text);
+						} catch(err){
+							this.talkcount--;
+						}
+					} else if(this.word.definition){
+						this.talkcount++;
+						this.$.plugin.callPluginMethod("playAudio", this.word.definition);
+					}
 				}
+			} else {
+				this.talkcount++;
+				this.$.plugin.callPluginMethod("playAudio", "No word for Nobot to say, please select a word.");	
 			}
 		}
 
@@ -160,5 +169,11 @@ enyo.kind({
 	gotLookupFailure: function() {
 		this.$.scrim.hide();
 		this.log("got lookup failure!");
+	},
+	playIntroduction: function(){
+		this.$.plugin.addCallback("playbackComplete", enyo.bind(this, this.endRoboto));
+		this.$.roboto.start();
+		var str = "Welcome, my name is Nobot. Please click on me to hear me speak the word and definition.";
+		this.$.plugin.callPluginMethodDeferred(null,"playAudio", str);	
 	},
 });

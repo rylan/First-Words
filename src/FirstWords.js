@@ -42,6 +42,7 @@ enyo.kind({
 		]},
 		{kind: "com.iCottrell.FirstWordsAbout", name:"about"},
 		{kind: "com.iCottrell.ReleaseNotes", name:"release"},
+		{kind: "ApplicationEvents", onLoad: "introduceNobot"}
 	], 
 	create: function(){
 		this.inherited(arguments);
@@ -110,5 +111,11 @@ enyo.kind({
 	addWordOpened: function(){
 		this.$.addWordDialog.setDB(this.wordDB);
 		this.$.addWordDialog.addWordSetFocus();
+	},
+	introduceNobot: function(){
+		if(!localStorage["nobotPlayed"]){
+			localStorage["nobotPlayed"] = "played_intro_1";
+			this.$.details.playIntroduction();
+		}
 	},
 });

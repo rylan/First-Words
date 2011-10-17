@@ -27,8 +27,8 @@ enyo.kind({
 		 	+ "If you have comments or suggestions I would love to hear them, email dev@icottrell.com", style:"font-size:11pt"},
 
 		 	{kind:"RowGroup", caption:"What's new in version 1.0.5", components:[
-				{content:"Animated Robot to go along with the text synthesis", style:"font-size:10pt"},
-				{content:"Fixed problem with custom definitions sometimes not being able to use the speech synthesis", style:"font-size:10pt"},
+				{content:"Animated Robot to go along with the text synthesis.", style:"font-size:10pt"},
+				{content:"Fixed problem with custom definitions sometimes not being able to use the speech synthesis.", style:"font-size:10pt"},
 				{content:"Changed add word so it places focus on the word input field (user requested).", style:"font-size:10pt"},
 				{content:"General bug fixes.",style:"font-size:10pt"}
 			]},
